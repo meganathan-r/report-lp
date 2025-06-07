@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Plus+Jakarta+Sans:wght@200..800&display=swap');
+@import "tailwindcss" important;
+
+@layer base {
+
+  *,
+  *::before,
+  *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  #react-root {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .para-text {
+    @apply text-base text-gray-600
+  }
+
+  .card-border {
+    @apply border border-gray-200
+  }
+}
+
+
+@theme {
+  --font-inten: "Inter", sans-serif;
+  --font-title: "Plus Jakarta Sans", sans-serif;
+  --color-bblue-900: #102450;
+  --color-bblue-800: #16316E;
+  --color-bblue-700: #1B3E8A;
+  --color-bblue-600: #1D4694;
+  --color-bblue-500: #204A9D;
+  --color-bblue-400: #3C61AD;
+  --color-bblue-300: #5878BD;
+  --color-bblue-200: #A4B4E0;
+  --color-bblue-100: #CED7F0;
+}
