@@ -23,7 +23,7 @@ const stats = [
 
 const HeroSection = () => {
   return (
-    <section className="mb-24  py-12 bg-white ">
+    <section className="mb-16  py-12 bg-white ">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-12 md:gap-16">
           {/* Text Content */}

@@ -1,14 +1,7 @@
-import { useTabContext } from "../../context/TabContext";
-
 const IndustryCard = ({ industry, index }) => {
-  const { setActiveTab } = useTabContext();
-
   return (
-    <a href="#tabsection" onClick={() => setActiveTab("tab2")}>
-      <div
-        key={index}
-        className="bg-white group border cursor-pointer border-[#e2e8f0] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2"
-      >
+    <a key={index} href="#tabsection">
+      <div className="bg-white group border cursor-pointer border-[#e2e8f0] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
         <div className="flex items-center gap-4 p-5 border-b border-[#e2e8f0]">
           <div
             className={`w-12 h-12 flex items-center justify-center rounded-xl text-2xl ${industry.iconBg} ${industry.iconColor}`}
@@ -27,19 +20,27 @@ const IndustryCard = ({ industry, index }) => {
           </p>
         </div>
         <div className="p-6">
-          <p className="para-text mb-6">{industry.description}</p>
+          <p className="para-text mb-6">{industry?.description}</p>
           <div className="flex justify-between gap-4 mt-4">
-            {industry.stats.map((stat, i) => (
-              <div key={i} className="flex-1 text-center relative">
-                <div className="text-2xl font-bold text-[#1e1b4b]">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-[#64748b]">{stat.label}</div>
-                {i === 0 && (
-                  <div className="absolute right-0 top-1/2 transform -translate-y-1/2 h-9 w-px bg-[#e2e8f0]" />
-                )}
+            <div className="flex-1 text-center relative">
+              <div className="text-2xl font-bold text-[#1e1b4b]">
+                {industry?.p75} → {industry?.p25}
               </div>
-            ))}
+              <div className="text-sm text-[#64748b]">
+                DSO <br /> P75 → P25
+              </div>
+
+              <div className="absolute right-0 top-1/2 transform -translate-y-1/2 h-9 w-px bg-[#e2e8f0]" />
+            </div>
+            <div className="flex-1 text-center relative">
+              <div className="text-2xl font-bold text-[#1e1b4b]">
+                ${(Number(industry?.cashReleased) / 1000000).toFixed(1)}M
+              </div>
+              <div className="text-sm text-[#64748b]">
+                Cash Released
+                <br /> per $100M
+              </div>
+            </div>
           </div>
         </div>
       </div>

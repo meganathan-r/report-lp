@@ -1,13 +1,19 @@
-import Report from "./sections";
-import useQueryData from "./hooks/useQueryData";
+import { AppStateProvider } from "./context/AppStateContext";
+import HeroSection from "./sections/hero-section";
+import IndustryCardsSection from "./sections/industry-card-section";
+import IndustryDistribution from "./sections/industry-distribution";
+import BenchmarkAnalytics from "./sections/tab-section";
 
 function App() {
-  const { data } = useQueryData("industry");
-  console.log(data);
   return (
-    <>
-      <Report />
-    </>
+    <AppStateProvider>
+      <div className="scroll-smooth transition-all duration-200">
+        <HeroSection />
+        <IndustryDistribution />
+        <IndustryCardsSection />
+        <BenchmarkAnalytics />
+      </div>
+    </AppStateProvider>
   );
 }
 

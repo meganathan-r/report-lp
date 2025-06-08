@@ -4,7 +4,6 @@ import { fetchSheetData } from "../services/fetchGoogleSheetData";
 
 const useQueryData = (queryName) => {
   const currentQuery = QUERY_KEYS[queryName];
-  console.log(currentQuery);
   return useQuery({
     queryKey: currentQuery?.key, // queryKey is now unique per sheetKey and URL
     queryFn: () => fetchSheetData(currentQuery?.url),
