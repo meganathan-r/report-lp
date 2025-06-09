@@ -1,21 +1,13 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  ResponsiveContainer,
-  Legend,
-  Tooltip,
-  Label,
-} from "recharts";
 import DSODashboard from "./DSODashboard";
 
 const CrossIndustryOverview = () => {
   return (
-    <div className="p-6 pt-8 sm:pt-10 sm:p-8">
+    <div className="">
       {/* DSO Comparison Across Industries */}
-      <DSODashboard />
-      {/* DSO by Revenue Range */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <DSODashboard />
+        <DSODashboard />
+      </div>
     </div>
   );
 };

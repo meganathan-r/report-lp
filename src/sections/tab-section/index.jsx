@@ -14,6 +14,7 @@ import CrossIndustryOverview from "./crossIndustryTab";
 import SolutionsSection from "./solutionTab";
 import IndustryDeepdive from "./industryDeepdiveTab";
 import HeaderSection from "../../components/header-section";
+import IndustrySolutions from "./solutionTab";
 
 const BenchmarkAnalytics = () => {
   const [activeTab, setActiveTab] = useState("tab1");
@@ -136,7 +137,10 @@ const BenchmarkAnalytics = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto bg-white min-h-screen bg-gradient-to-br from-gray-25 to-gray-75 py-5 sm:py-10 ">
+    <div
+      id="tabsection"
+      className="max-w-7xl mx-auto bg-white min-h-screen bg-gradient-to-br from-gray-25 to-gray-75 py-5 sm:py-10 "
+    >
       {/* Header */}
       <HeaderSection
         title="Industry Benchmark Analytics"
@@ -144,12 +148,14 @@ const BenchmarkAnalytics = () => {
           "Explore performance metrics across key industries to understand where you stand and how you can improve."
         }
       />
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200">
+      <div className="bg-white rounded-xl shadow-lg   border  border-slate-200">
         {/* Tabs */}
         <TabNavbar activeTab={activeTab} setActiveTab={setActiveTab} />
-        {activeTab === "tab1" && <CrossIndustryOverview />}
-        {activeTab === "tab2" && <IndustryDeepdive />}
-        {activeTab === "tab3" && <SolutionsSection />}
+        <div className="p-6 pt-8 sm:pt-10 sm:p-8">
+          {activeTab === "tab1" && <CrossIndustryOverview />}
+          {activeTab === "tab2" && <IndustryDeepdive />}
+          {activeTab === "tab3" && <IndustrySolutions />}
+        </div>
       </div>
     </div>
   );

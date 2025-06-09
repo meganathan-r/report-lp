@@ -158,7 +158,9 @@ const IndustryDistribution = () => {
                 </h3>
                 <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg">
                   <span className="font-medium">Total: </span>
-                  <span className="font-bold">1,281</span> //! TBA
+                  <span className="font-bold">
+                    {pieChartData.reduce((sum, item) => sum + item.value, 0)}
+                  </span>
                 </div>
               </div>
               <IndustryDistributionPieChart data={pieChartData} />

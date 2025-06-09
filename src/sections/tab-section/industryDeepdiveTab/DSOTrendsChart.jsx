@@ -9,6 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import InsightCard from "../../../components/insights-card";
 
 const DSOTrendsChart = () => {
   // Chart data
@@ -120,16 +121,12 @@ const DSOTrendsChart = () => {
       </div>
 
       {/* Analysis box */}
-      <div className="mt-6 mb-4 p-6 bg-gray-50 rounded-lg border-l-4 border-blue-600">
-        <h4 className="text-gray-800 mb-2 text-base font-semibold">
-          Revenue Band Analysis
-        </h4>
-        <div className="text-gray-600 text-sm leading-relaxed">
-          Companies in the $200M-$1B revenue band could realize 122K in interest
+      <InsightCard
+        title="Revenue Band Analysis"
+        description="Companies in the $200M-$1B revenue band could realize 122K in interest
           savings per $100M revenue by reducing their DSO from P75 to P25
-          levels, improving both liquidity and profitability.
-        </div>
-      </div>
+          levels, improving both liquidity and profitability."
+      />
     </div>
   );
 };

@@ -1,65 +1,52 @@
-import { useState } from "react";
-import ChallengeTable from "./ChallengesTable";
+import React, { useState } from "react";
+import ChallengesSolutionTable from "./ChallengesSolutionTable";
+import InsightCard from "../../../components/insights-card";
+import ImprovedCTASection from "./CTAsection";
+import TestimonialsSection from "./TestimonialsSection";
 
-// Reusable Card component
-const Card = ({ children, className }) => (
-  <div className={`rounded-xl overflow-hidden ${className}`}>{children}</div>
-);
-
-// Reusable CardContent component
-const CardContent = ({ children, className }) => (
-  <div className={`p-6 ${className}`}>{children}</div>
-);
-
-// Reusable Button component
-const Button = ({ children, variant = "primary", className, ...props }) => {
-  const baseClasses =
-    "font-medium rounded-lg px-5 py-2.5 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2";
-
-  const variants = {
-    primary: "bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500",
-    secondary:
-      "bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 focus:ring-blue-500",
-    outline:
-      "bg-transparent border border-blue-500 text-blue-600 hover:bg-blue-50 focus:ring-blue-500",
-    dark: "bg-slate-800 hover:bg-slate-900 text-white focus:ring-slate-500",
-  };
-
-  return (
-    <button
-      className={`${baseClasses} ${variants[variant]} ${className}`}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-};
-
-export default function SolutionsSection() {
+const IndustrySolutions = () => {
   const [industry, setIndustry] = useState("Banking & Financial Services");
-  const [revenue, setRevenue] = useState("$1‑50M");
-  const [activeTab, setActiveTab] = useState(2); // Default to third tab
+  const [revenueBand, setRevenueBand] = useState("$1-50M");
 
-  const tabs = [
-    "Industry Overview",
-    "Industry Deep‑dive",
-    "Challenges & Solutions",
+  const industries = [
+    "Banking & Financial Services",
+    "Basic Materials & Chemicals",
+    "Energy, Utilities & Waste",
+    "Food & Beverage",
+    "Healthcare & Life Sciences",
+    "Industrial & Manufacturing",
+    "Media, Entertainment & Advertising",
+    "Professional Services",
+    "Real Estate & Construction",
+    "Retail & Consumer Goods",
+    "Technology, Software & IT Services",
+    "Telecommunications",
+    "Transportation & Logistics",
+  ];
+
+  const revenueBands = [
+    "$1-50M",
+    "$50-200M",
+    "$200M-$1B",
+    "$1-10B",
+    "$10B+",
+    "all",
   ];
 
   const challenges = [
     {
-      challenge: "Manual Follow‑ups",
+      challenge: "Manual Follow-ups",
       impact:
-        "Reliance on email‑based collections without prioritization or automation",
+        "Reliance on email-based collections without prioritization or automation",
       solution:
-        "Intelligent Workflows: Automated follow‑ups based on account history, risk profile, and payment patterns",
+        "Intelligent Workflows: Automated follow-ups based on account history, risk profile, and payment patterns",
     },
     {
       challenge: "Poor Risk Segmentation",
       impact:
-        "One‑size‑fits‑all approach to collections without account prioritization",
+        "One-size-fits-all approach to collections without account prioritization",
       solution:
-        "Customer Tiering: AI‑driven segmentation to optimize treatment strategies and payment terms",
+        "Customer Tiering: AI-driven segmentation to optimize treatment strategies and payment terms",
     },
     {
       challenge: "Fragmented Dispute Resolution",
@@ -71,235 +58,264 @@ export default function SolutionsSection() {
   ];
 
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 font-inter">
-      {/* Header and Tabs */}
-
-      {/* Filters */}
-      <div className="bg-slate-50 rounded-xl p-6 mb-8">
+    <div className="">
+      {/* Filter Section */}
+      <div className="mb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
+          <div className="md:max-w-lg">
+            <label
+              htmlFor="industry-select"
+              className="block text-base font-medium text-gray-700 mb-2"
+            >
               Select Industry
             </label>
-            <select
-              value={industry}
-              onChange={(e) => setIndustry(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm"
+            <div className="relative">
+              <select
+                id="industry-select"
+                value={industry}
+                onChange={(e) => setIndustry(e.target.value)}
+                className="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors appearance-none bg-white"
+              >
+                {industries.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                <ChevronDownIcon />
+              </div>
+            </div>
+          </div>
+
+          <div className="md:max-w-sm">
+            <label
+              htmlFor="revenue-band-select"
+              className="block text-base font-medium text-gray-700 mb-2"
             >
-              <option>Banking & Financial Services</option>
-              <option>Healthcare</option>
-              <option>Manufacturing</option>
-              <option>Retail & E-commerce</option>
-              <option>Technology</option>
-            </select>
+              Select Revenue Band
+            </label>
+            <div className="relative">
+              <select
+                id="revenue-band-select"
+                value={revenueBand}
+                onChange={(e) => setRevenueBand(e.target.value)}
+                className="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors appearance-none bg-white"
+              >
+                {revenueBands.map((band) => (
+                  <option key={band} value={band}>
+                    {band}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                <ChevronDownIcon />
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Challenge Table */}
-      <div className="mb-12">
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
-          <h3 className="text-2xl font-bold text-slate-900">
-            Challenges & AI‑Powered Solutions
-          </h3>
-          <p className="text-sm text-slate-600 mt-1 md:mt-0">
-            Filtered for: {industry} • {revenue}
-          </p>
-        </div>
+      {/* Challenges & Solutions Section */}
+      <div className="mb-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">
+          Challenges & AI-Powered Solutions
+        </h2>
 
-        <ChallengeTable />
-      </div>
-
-      {/* Insight Banner */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 mb-12 border border-blue-100">
-        <div className="flex items-start">
-          <div className="flex-shrink-0 mt-1">
-            <svg
-              className="h-5 w-5 text-blue-500"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-          <div className="ml-4">
-            <h4 className="text-lg font-semibold text-slate-900">
-              Industry Insight
-            </h4>
-            <p className="mt-2 text-slate-700">
-              For <span className="font-semibold">{industry}</span> companies
-              with revenue of <span className="font-semibold">{revenue}</span>,
-              optimizing collections processes while enhancing customer
-              experience creates the most significant value, typically resulting
-              in a 25-40% reduction in DSO.
-            </p>
-          </div>
-        </div>
+        <ChallengesSolutionTable challenges={challenges} />
+        <InsightCard
+          title={"Industry Insight"}
+          description={`For ${industry} companies,
+              optimizing collections processes while enhancing customer experience
+            creates the most significant value.`}
+        />
       </div>
 
       {/* Success Stories */}
-      <h3 className="text-2xl font-bold text-slate-900 mb-6">
-        Success Stories in Similar Industries
-      </h3>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Testimonial Card */}
-        <Card className="bg-white shadow-lg border border-slate-200">
-          <CardContent>
-            <div className="flex flex-wrap gap-2">
-              <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800">
-                Scalable AR Solution
-              </span>
-              <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
-                Customer‑Centric
-              </span>
-            </div>
-
-            <div className="mt-5 flex flex-col sm:flex-row sm:items-center justify-between">
-              <div>
-                <h4 className="text-xl font-bold text-slate-900">MedUS</h4>
-                <p className="text-sm text-slate-600">
-                  Healthcare Provider • $42M Revenue
-                </p>
-              </div>
-              <div className="mt-3 sm:mt-0">
-                <p className="text-4xl font-bold text-blue-600">27%</p>
-                <p className="text-sm uppercase tracking-wide text-slate-600 mt-1">
-                  Increase in Cash Flow
-                </p>
-              </div>
-            </div>
-
-            <blockquote className="mt-6 pl-4 border-l-2 border-blue-500 text-slate-700 italic">
-              "With Growth, our AR processes are not only more efficient but
-              also more organized. This has led to a 20% reduction in manual
-              effort and a 30% reduction in outstanding receivables."
-            </blockquote>
-
-            <div className="mt-6 flex items-center">
-              <img
-                className="h-12 w-12 rounded-full object-cover"
-                src="https://randomuser.me/api/portraits/women/8.jpg"
-                alt="Bridget Crank"
-              />
-              <div className="ml-4">
-                <p className="font-medium text-slate-900">Bridget Crank</p>
-                <p className="text-sm text-slate-600">
-                  Manager, Billing & Payroll • MedUS
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8 grid grid-cols-2 gap-4">
-              <div className="rounded-lg bg-slate-50 p-4 text-center">
-                <p className="text-xs uppercase text-slate-600">
-                  DSO Reduction
-                </p>
-                <p className="text-lg font-bold text-blue-600 mt-1">45%</p>
-              </div>
-              <div className="rounded-lg bg-slate-50 p-4 text-center">
-                <p className="text-xs uppercase text-slate-600">
-                  AR Efficiency
-                </p>
-                <p className="text-lg font-bold text-blue-600 mt-1">+35%</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* CTA Card */}
-        <Card className="bg-gradient-to-br from-slate-900 to-slate-800 text-white">
-          <CardContent>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="rounded-full bg-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-300">
-                Industry Report
-              </span>
-              <span className="rounded-full bg-green-500/20 px-3 py-1 text-xs font-semibold text-green-300">
-                New Case Study
-              </span>
-            </div>
-
-            <h4 className="text-xl font-bold mb-4">
-              Transform AR for {industry} Companies
-            </h4>
-
-            <p className="text-slate-300 mb-6">
-              Growth's AI-powered receivables platform helps {industry}{" "}
-              companies achieve best-in-class performance through unified data
-              visibility, automated workflows, and predictive analytics.
-            </p>
-
-            <ul className="space-y-3 mb-8">
-              <li className="flex items-start">
-                <svg
-                  className="h-5 w-5 text-green-400 mt-0.5 mr-2 flex-shrink-0"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-                <span>Reduce DSO by 30-45% within 90 days</span>
-              </li>
-              <li className="flex items-start">
-                <svg
-                  className="h-5 w-5 text-green-400 mt-0.5 mr-2 flex-shrink-0"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-                <span>Automate 65% of collection activities</span>
-              </li>
-              <li className="flex items-start">
-                <svg
-                  className="h-5 w-5 text-green-400 mt-0.5 mr-2 flex-shrink-0"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-                <span>
-                  Increase cash flow by 20-30% with predictive analytics
-                </span>
-              </li>
-            </ul>
-
-            <div className="flex flex-col gap-3">
-              <Button variant="primary" className="w-full text-center py-3">
-                Schedule a Personalized Demo
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full text-center py-3 border-white/30 text-white hover:bg-white/10"
-              >
-                Download Industry Report
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="mb-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">
+          Success Stories in Similar Industries
+        </h2>
       </div>
-    </section>
+
+      <SuccessStoryCard />
+
+      {/* <CTACard industry={industry} /> */}
+      <ImprovedCTASection />
+    </div>
   );
-}
+};
+
+// Reusable Components
+const ChevronDownIcon = () => (
+  <svg
+    className="w-4 h-4 text-gray-400"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M19 9l-7 7-7-7"
+    ></path>
+  </svg>
+);
+
+const SuccessStoryCard = () => (
+  <div className="bg-white rounded-lg mb-16 overflow-hidden transition-all duration-300 hover:shadow-md border border-gray-200">
+    {/* Tag Section */}
+    <div className="px-6 pt-6 pb-2">
+      <div className="flex flex-wrap gap-2">
+        <span className="bg-blue-50 text-blue-700 font-medium py-1.5 px-3.5 rounded-full text-xs tracking-wide">
+          Scalable AR Solution
+        </span>
+        <span className="bg-gray-50 text-gray-700 font-medium py-1.5 px-3.5 rounded-full text-xs tracking-wide hidden sm:inline-block">
+          Customer-Centric
+        </span>
+      </div>
+    </div>
+
+    {/* Main Content */}
+    <div className="px-6 pb-6">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 mb-3 tracking-tight">
+          MedUS Healthcare
+        </h2>
+        <div className="flex items-baseline">
+          <span className="text-4xl font-extrabold text-blue-600 mr-3">
+            27%
+          </span>
+          <span className="text-base font-medium text-gray-600">
+            Increase in Cash Flow
+          </span>
+        </div>
+      </div>
+
+      {/* Testimonial */}
+      <div className="relative pl-8 mb-6">
+        <svg
+          className="absolute left-0 top-0.5 w-6 h-6 text-blue-100"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path>
+        </svg>
+        <blockquote className="text-gray-700 text-base leading-relaxed">
+          <p className="before:content-['“'] after:content-['”']">
+            With Growth, our AR processes are not only more efficient but also
+            more organized. This has led to a 20% reduction in manual effort and
+            a 30% reduction in outstanding receivables.
+          </p>
+        </blockquote>
+      </div>
+
+      {/* Profile */}
+      <div className="flex items-center">
+        <div className="bg-gray-200 border-2 border-gray-300 rounded-xl w-14 h-14 flex-shrink-0 overflow-hidden">
+          <div className="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400" />
+        </div>
+        <div className="ml-4">
+          <p className="font-bold text-gray-900">Bridgett Crank</p>
+          <p className="text-gray-600 text-sm">Manager, Billing & Payroll</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Results Section */}
+    <div className="bg-blue-50 px-6 py-4 border-t border-gray-100">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <p className="font-semibold text-gray-700 text-sm">
+          Results achieved in first 90 days:
+        </p>
+        <div className="flex gap-3">
+          <span className="bg-white rounded-full px-4 py-1.5 text-xs font-semibold text-blue-600 shadow-xs border border-gray-200">
+            DSO -45%
+          </span>
+          <span className="bg-white rounded-full px-4 py-1.5 text-xs font-semibold text-blue-600 shadow-xs border border-gray-200">
+            AR Effort -20%
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const CTACard = ({ industry }) => (
+  <div className="bg-[#061E28] rounded-2xl shadow-xl p-8 text-white">
+    <div className="mb-8">
+      <h2 className="text-2xl font-bold mb-4">
+        From Insight to Action for {industry} CFOs
+      </h2>
+      <p className="text-blue-200 text-base max-w-xl">
+        Growth's AI-powered receivables platform helps {industry} companies
+        achieve best-in-class DSO performance through unified data visibility,
+        automated workflows, and predictive analytics.
+      </p>
+    </div>
+    <div className="mb-10">
+      <h3 className="text-lg font-bold mb-6 text-blue-100">Key Benefits:</h3>
+      <ul className="space-y-4">
+        <BenefitItem text="Reduce DSO by 30-45% within 90 days" />
+        <BenefitItem text="Automate 65% of collection activities" />
+        <BenefitItem text="Increase cash flow by 20-30% with predictive analytics" />
+      </ul>
+    </div>
+    <div className="bg-blue-700/30 backdrop-blur-sm rounded-xl p-6 mb-8 border border-blue-500/30">
+      <div className="flex items-center">
+        <div className="mr-4">
+          <svg
+            className="h-12 w-12 text-blue-300"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            ></path>
+          </svg>
+        </div>
+        <div>
+          <h4 className="font-bold text-base text-blue-100">
+            Schedule a Personalized Demo
+          </h4>
+          <p className="text-blue-200 text-sm">
+            See how Growth can transform your financial operations
+          </p>
+        </div>
+      </div>
+    </div>
+    <button className="w-full bg-[#4BFEAE] text-[#3A4A43] font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-blue-900">
+      Schedule Growth Demo
+    </button>
+  </div>
+);
+
+const BenefitItem = ({ text }) => (
+  <li className="flex items-start">
+    <svg
+      className="h-6 w-6 text-green-400 mr-3 mt-1 flex-shrink-0"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M5 13l4 4L19 7"
+      ></path>
+    </svg>
+    <span className="text-base">
+      <span className="font-bold">{text.split(":")[0]}</span>
+      {text.includes(":") ? `:${text.split(":")[1]}` : ""}
+    </span>
+  </li>
+);
+
+export default IndustrySolutions;
