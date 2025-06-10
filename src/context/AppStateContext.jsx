@@ -1,11 +1,15 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import useQueryData from "../hooks/useQueryData";
+import { industries, revenueBands } from "../utils/constant";
 
 const AppStateContext = createContext(null);
 
+revenueBands;
 export const AppStateProvider = ({ children }) => {
   const [activeTab, setActiveTab] = useState("tab1");
   const [industryData, setIndustryData] = useState([]);
+  const [selectIndustry, setSelectIndustry] = useState(industries[0]);
+  const [selectRevenueBand, setSelectRevenueBand] = useState([revenueBands[0]]);
   const { data, isLoading, isError, error } = useQueryData("industry");
   useEffect(() => {
     if (data && Array.isArray(data)) {
@@ -21,8 +25,23 @@ export const AppStateProvider = ({ children }) => {
       isLoading,
       isError,
       error,
+      selectIndustry,
+      setSelectIndustry,
+      selectRevenueBand,
+      setSelectRevenueBand,
     }),
-    [activeTab, setActiveTab, industryData, isLoading, isError, error]
+    [
+      activeTab,
+      setActiveTab,
+      industryData,
+      isLoading,
+      isError,
+      error,
+      selectIndustry,
+      setSelectIndustry,
+      selectRevenueBand,
+      setSelectRevenueBand,
+    ]
   );
   return (
     <AppStateContext.Provider value={contextValue}>

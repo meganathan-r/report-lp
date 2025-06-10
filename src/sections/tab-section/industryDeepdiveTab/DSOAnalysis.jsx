@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -9,55 +9,57 @@ import {
   Cell,
   Tooltip,
 } from "recharts";
-
-const CustomTooltip = ({ active, payload, label }) => { 
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-white p-4 border border-gray-200 shadow-lg rounded-md">
-        <p className="font-bold text-gray-800">{label}</p>
-        <div className="mt-2">
-          {payload.map((entry, index) => (
-            <div key={index} className="flex items-center py-1">
-              <div
-                className="w-3 h-3 mr-2 rounded-sm"
-                style={{ backgroundColor: payload[0]?.payload?.color }}
-              ></div>
-              <span className="text-gray-600">{entry.name}: </span>
-              <span className="font-semibold ml-1">{entry.value} days</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-  return null;
-};
+import { useAppStateContext } from "../../../context/AppStateContext";
+import CustomTooltip from "../../../components/tooltip";
 
 const DSOAnalysis = () => {
-  // Data for progress bars
-  const progressItems = [
-    {
-      name: "Top Performers (P25)",
-      value: 16,
-      width: "25%",
-      color: "#204A9D",
-      bgColor: "bg-[#204A9D]",
-    },
-    {
-      name: "P25 to  Median",
-      value: 22,
-      width: "50%",
-      color: "#5878BD",
-      bgColor: "bg-[#5878BD]",
-    },
-    {
-      name: "Median to P75",
-      value: 31,
-      width: "75%",
-      color: "#CED7F0",
-      bgColor: "bg-[#CED7F0]",
-    },
-  ];
+  const { selectIndustry, industryData } = useAppStateContext();
+  const [dsoData, setDsoData] = useState([]);
+  useEffect(() => {
+    if (Array.isArray(industryData) && industryData.length > 0) {
+      const currentIndustryData = industryData?.filter(
+        (industry) =>
+          industry?.Industry == selectIndustry &&
+          industry?.["Revenue Range"] == "All"
+      );
+      const chartData = [
+        {
+          name: "Top Performers (P25)",
+          value: currentIndustryData[0]?.["P25 DSO"],
+          width: `${
+            (Number(currentIndustryData[0]?.["P25 DSO"]) /
+              Number(currentIndustryData[0]?.["P75 DSO"])) *
+            100
+          }%`,
+          color: "#204A9D",
+          bgColor: "bg-[#204A9D]",
+        },
+        {
+          name: "P25 to  Median",
+          value: currentIndustryData[0]?.["P50 DSO"],
+          width: `${
+            (Number(currentIndustryData[0]?.["P50 DSO"]) /
+              Number(currentIndustryData[0]?.["P75 DSO"])) *
+            100
+          }%`,
+          color: "#5878BD",
+          bgColor: "bg-[#5878BD]",
+        },
+        {
+          name: "Median to P75",
+          value: currentIndustryData[0]?.["P75 DSO"],
+          width: `${
+            (Number(currentIndustryData[0]?.["P75 DSO"]) /
+              Number(currentIndustryData[0]?.["P75 DSO"])) *
+            100
+          }%`,
+          color: "#CED7F0",
+          bgColor: "bg-[#CED7F0]",
+        },
+      ];
+      setDsoData(chartData);
+    }
+  }, [selectIndustry]);
 
   return (
     <div className="bg-white rounded-xl mb-8 sm:mb-10 mt-4 p-6">
@@ -68,7 +70,7 @@ const DSOAnalysis = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Column - Progress Bars */}
         <div className="space-y-6">
-          {progressItems.map((item, index) => (
+          {dsoData.map((item, index) => (
             <div key={index}>
               <div className="flex justify-between mb-1">
                 <span className="text-gray-700">{item.name}</span>
@@ -86,8 +88,9 @@ const DSOAnalysis = () => {
           <div className="pt-4 mt-4 border-t border-gray-100">
             <p className="text-sm text-gray-600">
               <span className="text-black font-medium">DSO Opportunity:</span>{" "}
-              Moving from P75 (31 days) to P25 (16 days) would release
-              approximately $4.7M per $100M revenue.
+              Moving from P75 ({dsoData[2]?.value} days) to P25 (
+              {dsoData[0]?.value} days) would release approximately $4.7M per
+              $100M revenue.
             </p>
           </div>
         </div>
@@ -96,7 +99,7 @@ const DSOAnalysis = () => {
         <div className="h-64 w-full p-4 bg-white rounded-lg border border-gray-200">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
-              data={progressItems}
+              data={dsoData}
               margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
               barSize={118}
             >
@@ -122,7 +125,7 @@ const DSOAnalysis = () => {
                 tickMargin={10}
               />
               <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                {progressItems.map((entry, index) => (
+                {dsoData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={entry.color}

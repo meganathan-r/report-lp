@@ -1,46 +1,94 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InsightCard from "../../../components/insights-card";
+import { useAppStateContext } from "../../../context/AppStateContext";
 
 const IndustryProfile = () => {
+  const { selectIndustry, industryData } = useAppStateContext();
+
+  const [industryProfile, setIndustryProfile] = useState([]);
+  useEffect(() => {
+    if (Array.isArray(industryData) && industryData.length > 0) {
+      const currentIndustryData = industryData?.filter(
+        (industry) =>
+          industry?.Industry == selectIndustry &&
+          industry?.["Revenue Range"] == "All"
+      );
+
+      const profiledata = [
+        {
+          title: "CapEx/Revenue",
+          value: currentIndustryData[0]?.["CapEX/Revenue"],
+        },
+        {
+          title: "Interest/Revenue",
+          value: currentIndustryData[0]?.["Interest/Revenue"],
+        },
+        {
+          title: "Allowance/Revenue",
+          value: currentIndustryData[0]?.["Allowance/Revenue"],
+        },
+        {
+          title: "Median CCC",
+          value: currentIndustryData[0]?.["Median CCC"],
+        },
+        {
+          title: "Sample Size",
+          value: currentIndustryData[0]?.["N"],
+        },
+        {
+          title: "DSO Impact on Working Capital",
+          value: Number(currentIndustryData[0]?.["Partial_R2_DSO"]).toFixed(2),
+          pro: true,
+        },
+      ];
+      setIndustryProfile(profiledata);
+    }
+  }, [selectIndustry]);
+
   return (
     <div className="mb-8">
-      <h2 className="text-lg font-bold text-gray-800 mb-4">
-        Banking &amp; Financial Services Profile
+      <h2 className="md:text-xl text-lg font-bold text-gray-800 mb-4">
+        {selectIndustry}
+        {"  "}Profile
       </h2>
 
       <div className="mb-6">
         <h3 className="text-base font-medium text-gray-700 ">
           Industry Characteristics
         </h3>
-        <div className="bg-gray-50 rounded-lg p-4">
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <p className="text-sm text-gray-500">Classification</p>
-              <p className="font-medium">Asset-Light</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">CapEx/Revenue</p>
-              <p className="font-medium">1.4%</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Interest/Revenue</p>
-              <p className="font-medium">2.1%</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Allowance/Revenue</p>
-              <p className="font-medium">0.00%</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Quick Ratio</p>
-              <p className="font-medium">0.63</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Sample Size</p>
-              <p className="font-medium">67 companies</p>
-            </div>
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+          <div className="grid grid-cols-3 gap-3">
+            {industryProfile?.map(
+              (item, i) =>
+                item.value != 0.0 &&
+                item.value != "0.00%" && (
+                  <div
+                    key={i}
+                    className={
+                      item.pro &&
+                      " p-2 border-bblue-500 bg-[#F0F9FF] border font-medium rounded-lg"
+                    }
+                  >
+                    <p
+                      className={
+                        item.pro
+                          ? "text-sm text-bblue-500"
+                          : "text-sm text-gray-500 "
+                      }
+                    >
+                      {item.title}
+                    </p>
+                    <p className="font-medium">
+                      {item.value}
+                      {item.suf}
+                    </p>
+                  </div>
+                )
+            )}
           </div>
         </div>
       </div>
+      {/* WFO */}
       <InsightCard
         title={"Key Pain Points"}
         description={

@@ -1,10 +1,17 @@
+import { useAppStateContext } from "../../context/AppStateContext";
+
 const IndustryCard = ({ industry, index }) => {
+  const { setActiveTab, setSelectIndustry } = useAppStateContext();
+  const handleClick = () => {
+    setActiveTab("tab2");
+    setSelectIndustry(industry.title);
+  };
   return (
-    <a key={index} href="#tabsection">
+    <a key={index} href="#tabsection" onClick={handleClick}>
       <div className="bg-white group max-h-86 border cursor-pointer border-[#e2e8f0] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
         <div className="flex items-center gap-4 p-5 border-b border-[#e2e8f0]">
           <div
-            className={`w-12 h-12 flex items-center justify-center rounded-xl text-2xl ${industry.iconBg} ${industry.iconColor}`}
+            className={`w-12 h-12 shrink-0 flex items-center justify-center rounded-xl text-2xl ${industry.iconBg} ${industry.iconColor}`}
           >
             {industry.icon}
           </div>

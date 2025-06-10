@@ -47,7 +47,7 @@ const CustomTooltip = ({ active, payload, total }) => {
 
 const IndustryDistributionPieChart = ({ data }) => {
   return (
-    <div className="h-[500px]">
+    <div className="h-[400px]">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
@@ -78,10 +78,10 @@ const IndustryDistributionPieChart = ({ data }) => {
           />
 
           <Legend
-            layout="horizontal"
-            verticalAlign="bottom"
-            align="bottom"
-            iconType="circle"
+            layout="vertical"
+            verticalAlign="middle"
+            align="right"
+            iconType="square"
             iconSize={10}
             formatter={(value) => (
               <span className="text-gray-600 text-sm font-medium">{value}</span>

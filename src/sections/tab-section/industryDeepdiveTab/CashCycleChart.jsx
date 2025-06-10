@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -10,14 +10,28 @@ import {
   LabelList,
 } from "recharts";
 import InsightCard from "../../../components/insights-card";
+import { useAppStateContext } from "../../../context/AppStateContext";
 
 const CashCycleChart = () => {
-  // Chart data
-  const data = [
-    { name: "DSO", value: 19 },
-    { name: "DIO", value: 0 },
-    { name: "DPO", value: -18 },
-  ];
+  const { selectIndustry, industryData } = useAppStateContext();
+  const [cashCycleData, setCashCycleData] = useState([]);
+  useEffect(() => {
+    if (Array.isArray(industryData) && industryData.length > 0) {
+      const currentIndustryData = industryData?.filter(
+        (industry) =>
+          industry?.Industry == selectIndustry &&
+          industry?.["Revenue Range"] == "All"
+      );
+
+      const chartData = [
+        { name: "DSO", value: currentIndustryData[0]?.["P50 DSO"] },
+        { name: "DIO", value: currentIndustryData[0]?.["P50 DIO"] },
+        { name: "DPO", value: -currentIndustryData[0]?.["P50 DPO"] },
+      ];
+
+      setCashCycleData(chartData);
+    }
+  }, [selectIndustry]);
 
   return (
     <div className="mb-8 sm:mb-10 mt-4">
@@ -29,7 +43,7 @@ const CashCycleChart = () => {
       <div className="h-64 col-span-2 bg-white p-2 rounded-lg border border-gray-200 hover:shadow-md">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            data={data}
+            data={cashCycleData}
             margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
             barCategoryGap="25%"
           >
@@ -78,7 +92,11 @@ const CashCycleChart = () => {
       <InsightCard
         title="Cash Conversion Cycle: 1 day"
         description={
-          "As an asset-light industry, Banking & Financial Services has potential to further optimize its cash cycle."
+          <>
+            <span className="font-semibold">{selectIndustry}</span> typically
+            has a longer cash cycle due to capital intensity and potential to
+            further optimize its cash cycle.
+          </>
         }
       />
     </div>

@@ -15,10 +15,7 @@ const ChallengeCard = ({ challenge, impact, solution }) => (
       </div>
       <div className="border-t border-gray-100 pt-3">
         <div className="text-sm font-semibold text-gray-700 mb-1 flex items-center">
-          <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mr-2">
-            AI Powered
-          </span>
-          Solution
+          AI Powered Solution
         </div>
         <p className="text-gray-800">{solution}</p>
       </div>
@@ -46,15 +43,12 @@ const ChallengesSolutionTable = ({ challenges }) => {
       </div>
 
       {/* Desktop View */}
-      <div className="hidden md:block rounded-xl border border-gray-200 bg-white overflow-hidden">
+      <div className="hidden md:block rounded-lg border border-gray-200 bg-white overflow-hidden">
         <div className="grid grid-cols-12 gap-8 bg-gray-50 p-4 text-sm font-medium text-gray-700">
           <div className="col-span-3">Challenge</div>
           <div className="col-span-4">Impact</div>
           <div className="col-span-5 flex items-center">
-            <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mr-2">
-              AI Powered
-            </span>
-            Solution
+            AI Powered Solution
           </div>
         </div>
         <div className="divide-y divide-gray-100">

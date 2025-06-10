@@ -1,7 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InsightCard from "../../../components/insights-card";
+import { useAppStateContext } from "../../../context/AppStateContext";
 
 const ImpactAnalysis = () => {
+  const [tableData, setTableData] = useState([]);
+  const { selectIndustry, industryData, selectRevenueBand } =
+    useAppStateContext();
+  useEffect(() => {
+    if (Array.isArray(industryData) && industryData.length > 0) {
+      const currentIndustryData = industryData?.filter(
+        (industry) =>
+          industry?.Industry == selectIndustry &&
+          industry?.["Revenue Range"] == selectRevenueBand
+      );
+      console.log(currentIndustryData);
+      const data = [
+        {
+          title: "Working Capital/Revenue",
+          value: `${(
+            Number(currentIndustryData[0]?.["Median OpNWC_to_Rev"]) * 100
+          ).toFixed(3)}%`,
+        },
+        {
+          title: "Quick Ratio Impact",
+          value: Number(currentIndustryData[0]?.["Quick Ratio_slope"]).toFixed(
+            3
+          ),
+        },
+        {
+          title: "FCF Margin Impact",
+          value: `${Number(
+            currentIndustryData[0]?.["FCF Margin_slope"]
+          ).toFixed(3)}%`,
+        },
+        {
+          title: "Cash Interest Coverage Impact",
+          value: `${Number(
+            currentIndustryData[0]?.["Cash Interest Coverage_slope"]
+          ).toFixed(3)}x`,
+        },
+      ];
+      setTableData(data);
+    }
+  }, [selectIndustry, selectRevenueBand]);
   return (
     <div className="mb-8 sm:mb-10 mt-4">
       <div className="bg-white my-12 ">
@@ -9,9 +50,9 @@ const ImpactAnalysis = () => {
           Financial Impact Analysis
         </h3>
 
-        <table className="w-full lg:col-span-2 space-y-6 border-collapse rounded-lg overflow-hidden">
+        <table className="w-full  lg:col-span-2 space-y-6 border-collapse rounded-lg">
           <thead>
-            <tr>
+            <tr className="">
               <th className="bg-gray-50 font-semibold text-gray-700 text-sm text-left px-4 py-4 border-b border-gray-200">
                 Key Metrics
               </th>
@@ -21,50 +62,29 @@ const ImpactAnalysis = () => {
             </tr>
           </thead>
           <tbody className="text-sm text-gray-600">
-            <tr>
-              <td className="px-4 py-4 border-b border-gray-200">
-                Working Capital / Revenue
-              </td>
-              <td className="px-4 py-4 border-b border-gray-200 text-primary-600 font-semibold">
-                11.2%
-              </td>
-            </tr>
-            <tr>
-              <td className="px-4 py-4 border-b border-gray-200">
-                Quick Ratio Impact
-              </td>
-              <td className="px-4 py-4 border-b border-gray-200 text-primary-600 font-semibold">
-                0.012
-              </td>
-            </tr>
-            <tr>
-              <td className="px-4 py-4 border-b border-gray-200">
-                FCF Margin Impact
-              </td>
-              <td className="px-4 py-4 border-b border-gray-200 text-primary-600 font-semibold">
-                -0.040%
-              </td>
-            </tr>
-            <tr>
-              <td className="px-4 py-4 border-b border-gray-200">
-                Cash Interest Coverage Impact
-              </td>
-              <td className="px-4 py-4 border-b border-gray-200 text-primary-600 font-semibold">
-                0.000x
-              </td>
-            </tr>
+            {tableData.map((item, i) => (
+              <tr key={i}>
+                <td className="px-4 py-4 border-b border-gray-200">
+                  {item.title}
+                </td>
+                <td className="px-4 py-4 border-b border-gray-200 text-primary-600 font-semibold">
+                  {item.value}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <InsightCard
           title="Strategic Insights"
           description={
             <>
-              <strong>Predictability Focus:</strong> For Banking &amp; Financial
-              Services companies in the $200M-$1B band, reducing DSO volatility
-              can significantly improve forecast accuracy and reduce bad debt
-              reserves. The data shows that a 1-day reduction in DSO correlates
-              with a 0.012improvement in Quick Ratio and -0.040% increase in FCF
-              margin.
+              <strong>Predictability Focus:</strong>{" "}
+              <span className="font-semibold">{selectIndustry}</span> companies
+              in the <span className="font-semibold">{selectRevenueBand}</span>{" "}
+              band, reducing DSO volatility can significantly improve forecast
+              accuracy and reduce bad debt reserves. The data shows that a 1-day
+              reduction in DSO correlates with a 0.012improvement in Quick Ratio
+              and -0.040% increase in FCF margin.
             </>
           }
         />

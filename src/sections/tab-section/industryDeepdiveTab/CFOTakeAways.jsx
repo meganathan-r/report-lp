@@ -1,6 +1,9 @@
 import React from "react";
+import { useAppStateContext } from "../../../context/AppStateContext";
 
 const CFOTakeAways = () => {
+  const { selectIndustry, industryData, selectRevenueBand } =
+    useAppStateContext();
   return (
     <div className="mb-8 sm:mb-10 mt-4">
       <h3 className="text-lg font-bold text-gray-800 mb-4">
@@ -13,9 +16,10 @@ const CFOTakeAways = () => {
               <span className="text-blue-800 font-bold text-sm">1</span>
             </div>
             <span className="text-gray-700">
-              Banking &amp; Financial Services companies with top-quartile DSO
-              performance maintain 33% lower allowance-for-doubtful-accounts
-              reserves, directly impacting gross margins.
+              <span className="font-semibold">{selectIndustry}</span> companies
+              with top-quartile DSO performance maintain 33% lower
+              allowance-for-doubtful-accounts reserves, directly impacting gross
+              margins.
             </span>
           </li>
           <li className="flex">
@@ -33,7 +37,8 @@ const CFOTakeAways = () => {
               <span className="text-blue-800 font-bold text-sm">3</span>
             </div>
             <span className="text-gray-700">
-              Top performers in the Banking &amp; Financial Services sector
+              Top performers in the{" "}
+              <span className="font-semibold">{selectIndustry}</span> sector
               maintain their DSO advantage through automated, data-driven
               collections that preserve customer relationships while
               accelerating cash flow.

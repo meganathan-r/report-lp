@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -10,35 +10,45 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import InsightCard from "../../../components/insights-card";
+import { useAppStateContext } from "../../../context/AppStateContext";
+import CustomTooltip from "../../../components/tooltip";
+
+// Custom tooltip
 
 const DSOTrendsChart = () => {
+  const { selectIndustry, industryData, selectRevenueBand } =
+    useAppStateContext();
+  const [revenueBandChart, setRevenueBandChart] = useState([]);
   // Chart data
-  const data = [
-    { name: "$1-50M", dso: 40.2, cashRelease: 69.88 },
-    { name: "$50-200M", dso: 14.6, cashRelease: 61.11 },
-    { name: "$200M-$1B", dso: 21, cashRelease: 65.49 },
-    { name: "$1-10B", dso: 33.8, cashRelease: 69.88 },
-    { name: "$10B+", dso: 65.8, cashRelease: 87.41 },
-    { name: "all", dso: 197, cashRelease: 197 },
-  ];
-
-  // Custom tooltip
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-white p-4 border border-gray-200 shadow-md rounded-md">
-          <p className="font-medium text-gray-900">{label}</p>
-          <p className="text-sm text-blue-900">
-            DSO: {payload[0].value.toFixed(1)} days
-          </p>
-          <p className="text-sm text-green-500">
-            Cash: ${payload[1].value.toFixed(1)}M
-          </p>
-        </div>
-      );
-    }
-    return null;
+  const orderMap = {
+    "$1-50M": 0,
+    "$50-200M": 1,
+    "$200M-$1B": 2,
+    "$1-10B": 3,
+    "$10B+": 4,
+    All: 5,
   };
+
+  useEffect(() => {
+    if (Array.isArray(industryData) && industryData.length > 0) {
+      const currentIndustryData = industryData?.filter(
+        (industry) => industry?.Industry == selectIndustry
+      );
+      const revenueBandData = currentIndustryData.map((item) => ({
+        name: item?.["Revenue Range"],
+        dso: item?.["P50 DSO"],
+        cashRelease: (
+          Number(item?.["Cash Released (P25) per $100M Revenue"]) / 1000000
+        )?.toFixed(2),
+      }));
+      const sortedData = revenueBandData.sort((a, b) => {
+        const orderA = orderMap[a.name] !== undefined ? orderMap[a.name] : 999;
+        const orderB = orderMap[b.name] !== undefined ? orderMap[b.name] : 999;
+        return orderA - orderB;
+      });
+      setRevenueBandChart(sortedData);
+    }
+  }, [selectIndustry]);
 
   return (
     <div className="mb-8 sm:mb-10 mt-4">
@@ -51,7 +61,7 @@ const DSOTrendsChart = () => {
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            data={data}
+            data={revenueBandChart}
             margin={{ top: 5, right: 30, left: 20, bottom: 25 }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
@@ -65,6 +75,7 @@ const DSOTrendsChart = () => {
               yAxisId="left"
               orientation="left"
               domain={[0, 60]}
+              ticks={[0, 20, 50, 70, 100]}
               tick={{ fill: "#666", fontSize: 12 }}
               tickLine={{ stroke: "#666" }}
               axisLine={{ stroke: "#666" }}
@@ -75,6 +86,7 @@ const DSOTrendsChart = () => {
               yAxisId="right"
               orientation="right"
               domain={[0, 12]}
+              ticks={[0, 20, 50, 70, 100]}
               tick={{ fill: "#666", fontSize: 12 }}
               tickLine={{ stroke: "#666" }}
               axisLine={{ stroke: "#666" }}
@@ -123,9 +135,16 @@ const DSOTrendsChart = () => {
       {/* Analysis box */}
       <InsightCard
         title="Revenue Band Analysis"
-        description="Companies in the $200M-$1B revenue band could realize 122K in interest
-          savings per $100M revenue by reducing their DSO from P75 to P25
-          levels, improving both liquidity and profitability."
+        description={
+          <>
+            Companies in the{" "}
+            <span className="font-semibold">{selectIndustry}</span> in{" "}
+            <span className="font-semibold">{selectRevenueBand}</span> revenue
+            band could realize 122K in interest savings per $100M revenue by
+            reducing their DSO from P75 to P25 levels, improving both liquidity
+            and profitability.
+          </>
+        }
       />
     </div>
   );

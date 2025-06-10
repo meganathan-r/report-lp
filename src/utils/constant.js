@@ -36,20 +36,20 @@ export const colors = {
   dark: "#1E293B", // Deep background
   light: "#F1F5F9", // Light background / dividers
 };
-// Industry data
+// used -  Industry data
 export const industries = [
   "Banking & Financial Services",
   "Basic Materials & Chemicals",
   "Energy, Utilities & Waste",
-  "Food & Beverage",
+  // "Food & Beverage",
   "Healthcare & Life Sciences",
   "Industrial & Manufacturing",
   "Media, Entertainment & Advertising",
-  "Professional Services",
+  // "Professional Services",
   "Real Estate & Construction",
-  "Retail & Consumer Goods",
+  // "Retail & Consumer Goods",
   "Technology, Software & IT Services",
-  "Telecommunications",
+  // "Telecommunications",
   "Transportation & Logistics",
 ];
 // Asset-heavy industries
@@ -272,7 +272,7 @@ export const industryData = {
   },
 };
 
-//Revenue bands in correct order
+// used - Revenue bands in correct order
 export const revenueBands = [
   "All",
   "$1-50M",
@@ -454,9 +454,9 @@ export const overallStats = {
   avgCashReleased: 9499473,
 };
 
-// Links
+// used - Links
 export const INDUSTY_DATA_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vRB4Cue4lJtn87rs2mMSaOao_6nvOE6qcU6COHPp0NvavDyAueXC1L-TsV871VA6mu2F6OIFUvkM_fe/pub?gid=532636739&single=true&output=csv";
 
-const TESTIMONIALS_DATA_URL =
+export const TESTIMONIALS_DATA_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vRB4Cue4lJtn87rs2mMSaOao_6nvOE6qcU6COHPp0NvavDyAueXC1L-TsV871VA6mu2F6OIFUvkM_fe/pub?gid=889242289&single=true&output=csv";

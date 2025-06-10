@@ -18,36 +18,26 @@ const IndustryCardsSection = () => {
       icon: <FaChartPie />,
       iconColor: "text-[#4361ee]",
       iconBg: "bg-[#4361ee1a]",
-      description:
-        "Compare software development efficiency, cloud infrastructure costs, and cybersecurity metrics.",
     },
     {
       icon: <FaBolt />,
       iconColor: "text-[#4cc9f0]",
       iconBg: "bg-[#4cc9f01a]",
-      description:
-        "Compare software development efficiency, cloud infrastructure costs, and cybersecurity metrics.",
     },
     {
       icon: <FaHeartbeat />,
       iconColor: "text-[#48bb78]",
       iconBg: "bg-[#48bb781a]",
-      description:
-        "Compare software development efficiency, cloud infrastructure costs, and cybersecurity metrics.",
     },
     {
       icon: <FaShoppingCart />,
       iconColor: "text-[#f59e0b]",
       iconBg: "bg-[#f59e0b1a]",
-      description:
-        "Compare software development efficiency, cloud infrastructure costs, and cybersecurity metrics.",
     },
     {
       icon: <FaIndustry />,
       iconColor: "text-[#ef4444]",
       iconBg: "bg-[#ef44441a]",
-      description:
-        "Compare software development efficiency, cloud infrastructure costs, and cybersecurity metrics.",
       p25: 60,
       p75: 30,
     },
@@ -55,8 +45,6 @@ const IndustryCardsSection = () => {
       icon: <FaMicrochip />,
       iconColor: "text-[#9f7aea]",
       iconBg: "bg-[#9f7aea1a]",
-      description:
-        "Compare software development efficiency, cloud infrastructure costs, and cybersecurity metrics.",
     },
   ]);
   useEffect(() => {
@@ -69,7 +57,7 @@ const IndustryCardsSection = () => {
           p25: Number(item["P25 DSO"]),
           p75: Number(item["P75 DSO"]),
           cashReleased: Number(item["Cash Released (P25) per $100M Revenue"]),
-          description: industriesCardData[i]?.description,
+          description: item["IndustryCard_description"],
           icon: industriesCardData[i]?.icon,
           iconColor: industriesCardData[i]?.iconColor,
           iconBg: industriesCardData[i]?.iconBg,

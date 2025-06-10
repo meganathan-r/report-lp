@@ -31,13 +31,13 @@ const IndustryDistribution = () => {
         {/* Main content */}
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Left content */}
-          <div className="lg:w-2/4">
-            <div className="bg-white rounded-2xl  p-8  border-gray-200 h-full">
+          <div className="lg:w-2/5">
+            <div className="bg-white rounded-2xl   border-gray-200 h-full">
               <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <span className="bg-blue-100 text-blue-700 rounded-lg w-10 h-10 flex items-center justify-center mr-3">
+                <span className="bg-blue-100 text-blue-700 rounded-lg w-8 h-8 flex items-center justify-center mr-3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
+                    className="h-5 w-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -62,10 +62,10 @@ const IndustryDistribution = () => {
 
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="bg-blue-50 p-3 rounded-xl mr-4 flex-shrink-0">
+                  <div className="bg-blue-50 rounded-md p-1 mr-4 flex-shrink-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-blue-700"
+                      className="h-4 w-4 text-blue-700"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -91,10 +91,10 @@ const IndustryDistribution = () => {
                 </div>
 
                 <div className="flex items-start">
-                  <div className="bg-blue-50 p-3 rounded-xl mr-4 flex-shrink-0">
+                  <div className="bg-blue-50 rounded-md p-1 mr-4 flex-shrink-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-blue-700"
+                      className="h-4 w-4 text-blue-700"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -119,10 +119,10 @@ const IndustryDistribution = () => {
                 </div>
 
                 <div className="flex items-start">
-                  <div className="bg-blue-50 p-3 rounded-xl mr-4 flex-shrink-0">
+                  <div className="bg-blue-50 rounded-md p-1 mr-4 flex-shrink-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-blue-700"
+                      className="h-4 w-4 text-blue-700"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -150,12 +150,9 @@ const IndustryDistribution = () => {
           </div>
 
           {/* Right content - Chart */}
-          <div className="lg:w-2/4">
-            <div className="bg-white rounded-2xl hover:shadow-md  p-6 card-border">
-              <div className="flex justify-between items-center mb-8">
-                <h3 className="text-2xl font-bold text-gray-900">
-                  Industry Distribution by Sector
-                </h3>
+          <div className="lg:w-3/5">
+            <div className="bg-white rounded-2xl hover:shadow-md  p-4 card-border">
+              <div className="flex justify-end items-center mb-2">
                 <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg">
                   <span className="font-medium">Total: </span>
                   <span className="font-bold">
