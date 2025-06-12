@@ -8,14 +8,14 @@ const IndustryCard = ({ industry, index }) => {
   };
   return (
     <a key={index} href="#tabsection" onClick={handleClick}>
-      <div className="bg-white group max-h-86 border cursor-pointer border-[#e2e8f0] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+      <div className="bg-white group border cursor-pointer border-[#e2e8f0] rounded-2xl hover:shadow-md transition-all duration-300 hover:-translate-y-2">
         <div className="flex items-center gap-4 p-5 border-b border-[#e2e8f0]">
           <div
-            className={`w-12 h-12 shrink-0 flex items-center justify-center rounded-xl text-2xl ${industry.iconBg} ${industry.iconColor}`}
+            className={` w-10 h-10 sm:w-12 sm:h-12 shrink-0 flex items-center justify-center rounded-xl text-2xl ${industry.iconBg} ${industry.iconColor}`}
           >
             {industry.icon}
           </div>
-          <h3 className="text-xl font-semibold text-[#1e1b4b]">
+          <h3 className="sm:text-xl text-lg font-semibold text-[#1e1b4b] line-clamp-2">
             {industry.title}
           </h3>
 
@@ -27,8 +27,8 @@ const IndustryCard = ({ industry, index }) => {
           </p>
         </div>
         <div className="p-6">
-          <p className="para-text mb-6">{industry?.description}</p>
-          <div className="flex justify-between gap-4 mt-4">
+          <p className="para-text mb-6 line-clamp-3">{industry?.description}</p>
+          <div className="flex justify-between mt-auto gap-4">
             <div className="flex-1 text-center relative">
               <div className="text-2xl font-bold text-[#1e1b4b]">
                 {industry?.p75} → {industry?.p25}

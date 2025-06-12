@@ -17,6 +17,13 @@
   }
 }
 
+#embedHere iframe {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: 360px !important;
+  position: relative !important;
+}
+
 @layer components {
   .para-text {
     @apply text-base text-gray-600

@@ -3,16 +3,38 @@ import InsightCard from "../../../components/insights-card";
 import { useAppStateContext } from "../../../context/AppStateContext";
 
 const IndustryProfile = () => {
-  const { selectIndustry, industryData } = useAppStateContext();
+  const { selectIndustry, industryData, selectRevenueBand } =
+    useAppStateContext();
 
   const [industryProfile, setIndustryProfile] = useState([]);
+  const [keyPoints, setKeyPoints] = useState([]);
   useEffect(() => {
     if (Array.isArray(industryData) && industryData.length > 0) {
       const currentIndustryData = industryData?.filter(
         (industry) =>
           industry?.Industry == selectIndustry &&
+          industry?.["Revenue Range"] == selectRevenueBand
+      );
+      const currentIndustryDataAll = industryData?.filter(
+        (industry) =>
+          industry?.Industry == selectIndustry &&
           industry?.["Revenue Range"] == "All"
       );
+      const keypointsdata = [
+        {
+          title: currentIndustryDataAll[0]?.["keypoint1Title"],
+          description: currentIndustryDataAll[0]?.["keypoint1Description"],
+        },
+        {
+          title: currentIndustryDataAll[0]?.["keypoint2Title"],
+          description: currentIndustryDataAll[0]?.["keypoint2Description"],
+        },
+        {
+          title: currentIndustryDataAll[0]?.["keypoint3Title"],
+          description: currentIndustryDataAll[0]?.["keypoint3Description"],
+        },
+      ];
+      setKeyPoints(keypointsdata);
 
       const profiledata = [
         {
@@ -32,8 +54,10 @@ const IndustryProfile = () => {
           value: currentIndustryData[0]?.["Median CCC"],
         },
         {
-          title: "Sample Size",
-          value: currentIndustryData[0]?.["N"],
+          title: "Working Capital/Revenue",
+          value: `${(
+            Number(currentIndustryData[0]?.["Median OpNWC_to_Rev"]) * 100
+          ).toFixed(3)}x`,
         },
         {
           title: "DSO Impact on Working Capital",
@@ -43,7 +67,7 @@ const IndustryProfile = () => {
       ];
       setIndustryProfile(profiledata);
     }
-  }, [selectIndustry]);
+  }, [selectIndustry, selectRevenueBand, industryData]);
 
   return (
     <div className="mb-8">
@@ -57,7 +81,7 @@ const IndustryProfile = () => {
           Industry Characteristics
         </h3>
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {industryProfile?.map(
               (item, i) =>
                 item.value != 0.0 &&
@@ -65,8 +89,7 @@ const IndustryProfile = () => {
                   <div
                     key={i}
                     className={
-                      item.pro &&
-                      " p-2 border-bblue-500 bg-[#F0F9FF] border font-medium rounded-lg"
+                      item.pro && " p-2  bg-[#F0F9FF] font-medium rounded-lg"
                     }
                   >
                     <p
@@ -94,25 +117,14 @@ const IndustryProfile = () => {
         description={
           <>
             <ul className="space-y-2 text-sm">
-              <li className="text-gray-700">
-                <span className="font-semibold text-black">
-                  Customer Diversity:
-                </span>{" "}
-                Varied payment behaviors require segmented collection strategies
-              </li>
-              <li className="text-gray-700">
-                <span className="font-semibold text-black">
-                  Forecast Accuracy:
-                </span>{" "}
-                Unpredictable payment patterns impact cash planning reliability
-              </li>
-              <li className="text-gray-700">
-                <span className="font-semibold text-black">
-                  Dispute Resolution:
-                </span>{" "}
-                High-touch relationships require careful balance of collections
-                and satisfaction
-              </li>
+              {keyPoints?.map((item, i) => (
+                <li key={i} className="text-gray-700">
+                  <span className="font-semibold text-black">
+                    {item?.title}:
+                  </span>{" "}
+                  {item?.description}
+                </li>
+              ))}
             </ul>
           </>
         }

@@ -13,14 +13,15 @@ import InsightCard from "../../../components/insights-card";
 import { useAppStateContext } from "../../../context/AppStateContext";
 
 const CashCycleChart = () => {
-  const { selectIndustry, industryData } = useAppStateContext();
+  const { selectIndustry, industryData, selectRevenueBand } =
+    useAppStateContext();
   const [cashCycleData, setCashCycleData] = useState([]);
   useEffect(() => {
     if (Array.isArray(industryData) && industryData.length > 0) {
       const currentIndustryData = industryData?.filter(
         (industry) =>
           industry?.Industry == selectIndustry &&
-          industry?.["Revenue Range"] == "All"
+          industry?.["Revenue Range"] == selectRevenueBand
       );
 
       const chartData = [
@@ -31,7 +32,7 @@ const CashCycleChart = () => {
 
       setCashCycleData(chartData);
     }
-  }, [selectIndustry]);
+  }, [selectIndustry, selectRevenueBand, industryData]);
 
   return (
     <div className="mb-8 sm:mb-10 mt-4">
@@ -73,7 +74,7 @@ const CashCycleChart = () => {
                 borderRadius: "4px",
               }}
               formatter={(value) => [`${Math.abs(value)} days`, ""]}
-              labelFormatter={(name) => `${name}:`}
+              labelFormatter={(name) => `${name}`}
             />
             <Bar dataKey="value" fill="#1E3A8A" radius={0}>
               <LabelList
@@ -87,18 +88,6 @@ const CashCycleChart = () => {
           </BarChart>
         </ResponsiveContainer>
       </div>
-
-      {/* Summary Card */}
-      <InsightCard
-        title="Cash Conversion Cycle: 1 day"
-        description={
-          <>
-            <span className="font-semibold">{selectIndustry}</span> typically
-            has a longer cash cycle due to capital intensity and potential to
-            further optimize its cash cycle.
-          </>
-        }
-      />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 
 const ChallengeCard = ({ challenge, impact, solution }) => (
-  <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-all">
+  <div className="bg-white rounded-xl border border-gray-200 hover:shadow-sm overflow-hidden transition-all">
     <div className="p-5 space-y-4">
       <div>
         <div className="text-sm font-semibold text-blue-700 mb-1">

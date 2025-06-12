@@ -6,6 +6,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import useMobileDevice from "../../hooks/useMobileDevice";
 
 // Color palette
 const COLORS = [
@@ -46,6 +47,7 @@ const CustomTooltip = ({ active, payload, total }) => {
 };
 
 const IndustryDistributionPieChart = ({ data }) => {
+  const { isMobile } = useMobileDevice();
   return (
     <div className="h-[400px]">
       <ResponsiveContainer width="100%" height="100%">
@@ -55,7 +57,7 @@ const IndustryDistributionPieChart = ({ data }) => {
             cx="50%"
             cy="50%"
             innerRadius={0}
-            outerRadius={160}
+            outerRadius={isMobile ? 130 : 160}
             paddingAngle={0}
             dataKey="value"
             nameKey="name"
@@ -76,23 +78,26 @@ const IndustryDistributionPieChart = ({ data }) => {
             content={<CustomTooltip total={1948} />}
             cursor={{ fill: "#f5f5f5" }}
           />
-
-          <Legend
-            layout="vertical"
-            verticalAlign="middle"
-            align="right"
-            iconType="square"
-            iconSize={10}
-            formatter={(value) => (
-              <span className="text-gray-600 text-sm font-medium">{value}</span>
-            )}
-            wrapperStyle={{
-              paddingLeft: "20px",
-              maxHeight: "400px",
-              overflowY: "auto",
-              fontSize: "14px",
-            }}
-          />
+          {!isMobile && (
+            <Legend
+              layout="vertical"
+              verticalAlign="middle"
+              align="right"
+              iconType="square"
+              iconSize={10}
+              formatter={(value) => (
+                <span className="text-gray-600 text-sm font-medium">
+                  {value}
+                </span>
+              )}
+              wrapperStyle={{
+                paddingLeft: "20px",
+                maxHeight: "400px",
+                overflowY: "auto",
+                fontSize: "14px",
+              }}
+            />
+          )}
         </PieChart>
       </ResponsiveContainer>
     </div>

@@ -9,6 +9,7 @@ import {
   AreaChart,
   Label,
 } from "recharts";
+import CustomTooltip from "../../components/tooltip";
 
 const COLORS = {
   YOUR_COMPANY: "#204A9D", // bblue.500
@@ -23,22 +24,7 @@ const GRADIENTS = {
   INDUSTRY_AVG: "url(#colorIndustryAvg)",
 };
 
-const HeroChart = () => {
-  const data = [
-    { month: "Jan", yourCompany: 55, industryAvg: 45 },
-    { month: "Feb", yourCompany: 52, industryAvg: 44 },
-    { month: "Mar", yourCompany: 50, industryAvg: 43 },
-    { month: "Apr", yourCompany: 48, industryAvg: 42 },
-    { month: "May", yourCompany: 47, industryAvg: 42 },
-    { month: "Jun", yourCompany: 45, industryAvg: 41 },
-    { month: "Jul", yourCompany: 44, industryAvg: 40 },
-    { month: "Aug", yourCompany: 42, industryAvg: 40 },
-    { month: "Sep", yourCompany: 41, industryAvg: 39 },
-    { month: "Oct", yourCompany: 40, industryAvg: 38 },
-    { month: "Nov", yourCompany: 38, industryAvg: 37 },
-    { month: "Dec", yourCompany: 36, industryAvg: 36 },
-  ];
-
+const HeroChart = ({ chartData }) => {
   return (
     <ResponsiveContainer
       className="h-[300px] sm:h-[400px]"
@@ -46,11 +32,11 @@ const HeroChart = () => {
       height={400}
     >
       <AreaChart
-        data={data}
+        data={chartData}
         margin={{ top: 10, right: 10, left: 0, bottom: 10 }}
       >
         <defs>
-          <linearGradient id="colorYourCompany" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="colorP50DSO" x1="0" y1="0" x2="0" y2="1">
             <stop
               offset="5%"
               stopColor={COLORS.YOUR_COMPANY}
@@ -83,7 +69,7 @@ const HeroChart = () => {
         />
 
         <XAxis
-          dataKey="month"
+          dataKey="name"
           axisLine={false}
           tickLine={false}
           tick={{ fill: COLORS.AXIS, fontSize: 12 }}
@@ -111,21 +97,13 @@ const HeroChart = () => {
         </YAxis>
 
         <Tooltip
-          contentStyle={{
-            backgroundColor: "white",
-            border: `1px solid ${COLORS.GRID}`,
-            borderRadius: "4px",
-            padding: "8px 12px",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
-          }}
-          formatter={(value) => [`${value} days`, ""]}
-          labelFormatter={(label) => <strong>{label}</strong>}
+          content={<CustomTooltip metric="days" defalutLable={true} />}
         />
 
         <Legend
           verticalAlign="top"
           align="right"
-          iconType="circle"
+          iconType="square"
           iconSize={10}
           wrapperStyle={{
             paddingBottom: 10,
@@ -135,8 +113,8 @@ const HeroChart = () => {
 
         <Area
           type="monotone"
-          dataKey="yourCompany"
-          name="Your Company"
+          dataKey="P50 DSO"
+          name="P50 DSO"
           stroke={COLORS.YOUR_COMPANY}
           fill={GRADIENTS.YOUR_COMPANY}
           strokeWidth={2}
@@ -149,7 +127,7 @@ const HeroChart = () => {
           activeDot={{ r: 6 }}
         />
 
-        <Area
+        {/* <Area
           type="monotone"
           dataKey="industryAvg"
           name="Industry Average"
@@ -164,7 +142,7 @@ const HeroChart = () => {
             fill: "white",
           }}
           activeDot={{ r: 6 }}
-        />
+        /> */}
       </AreaChart>
     </ResponsiveContainer>
   );

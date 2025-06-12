@@ -93,7 +93,7 @@ const DSOTrendsChart = () => {
               tickCount={5}
               tickFormatter={(value) => value}
             />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip content={<CustomTooltip metric="M" />} />
             <Legend
               wrapperStyle={{
                 bottom: 0,
@@ -140,9 +140,12 @@ const DSOTrendsChart = () => {
             Companies in the{" "}
             <span className="font-semibold">{selectIndustry}</span> in{" "}
             <span className="font-semibold">{selectRevenueBand}</span> revenue
-            band could realize 122K in interest savings per $100M revenue by
-            reducing their DSO from P75 to P25 levels, improving both liquidity
-            and profitability.
+            band could realize{" "}
+            <span className="font-semibold">
+              {revenueBandChart?.[orderMap[selectRevenueBand]]?.cashRelease} M
+            </span>{" "}
+            in cash releas per $100M revenue by reducing their DSO from P75 to
+            P25 levels, improving both liquidity and profitability.
           </>
         }
       />

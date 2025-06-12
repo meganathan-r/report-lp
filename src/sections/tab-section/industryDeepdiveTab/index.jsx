@@ -17,7 +17,7 @@ const IndustryDeepdive = ({
   return (
     <div className="">
       <div className="grid grid-cols-1 md:grid-cols-4 items-start  gap-4">
-        <div className="flex flex-col col-span-1  gap-6 p-4 md:sticky top-18 border border-gray-200 rounded-md">
+        <div className="flex flex-col col-span-1  gap-6 p-4 md:sticky top-20 border border-gray-200 rounded-md">
           <SelectInput
             label="Select Industry"
             options={industries}

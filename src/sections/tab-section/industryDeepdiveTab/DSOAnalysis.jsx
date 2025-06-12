@@ -13,14 +13,15 @@ import { useAppStateContext } from "../../../context/AppStateContext";
 import CustomTooltip from "../../../components/tooltip";
 
 const DSOAnalysis = () => {
-  const { selectIndustry, industryData } = useAppStateContext();
+  const { selectIndustry, industryData, selectRevenueBand } =
+    useAppStateContext();
   const [dsoData, setDsoData] = useState([]);
   useEffect(() => {
     if (Array.isArray(industryData) && industryData.length > 0) {
       const currentIndustryData = industryData?.filter(
         (industry) =>
           industry?.Industry == selectIndustry &&
-          industry?.["Revenue Range"] == "All"
+          industry?.["Revenue Range"] == selectRevenueBand
       );
       const chartData = [
         {
@@ -59,10 +60,10 @@ const DSOAnalysis = () => {
       ];
       setDsoData(chartData);
     }
-  }, [selectIndustry]);
+  }, [selectIndustry, selectRevenueBand]);
 
   return (
-    <div className="bg-white rounded-xl mb-8 sm:mb-10 mt-4 p-6">
+    <div className="bg-white rounded-xl mb-8 sm:mb-10 mt-4 ">
       <h2 className="text-lg font-bold text-gray-800 mb-4">
         DSO Range Analysis - Banking & Financial Services
       </h2>
@@ -84,7 +85,7 @@ const DSOAnalysis = () => {
               </div>
             </div>
           ))}
-
+{/* 
           <div className="pt-4 mt-4 border-t border-gray-100">
             <p className="text-sm text-gray-600">
               <span className="text-black font-medium">DSO Opportunity:</span>{" "}
@@ -92,7 +93,7 @@ const DSOAnalysis = () => {
               {dsoData[0]?.value} days) would release approximately $4.7M per
               $100M revenue.
             </p>
-          </div>
+          </div> */}
         </div>
 
         {/* Right Column - Bar Chart */}

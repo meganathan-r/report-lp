@@ -6,7 +6,7 @@ const TabNavbar = ({ activeTab, setActiveTab }) => {
   ];
 
   return (
-    <div className="grid grid-cols-3 gap-0 sm:gap-5 flex-wrap bg-[#f0f9ff] border-b border-slate-200">
+    <div className="grid overflow-hidden rounded-t-[7px] grid-cols-3 gap-0  flex-wrap bg-[#f0f9ff] border-b border-slate-200">
       {tabs.map((tab) => (
         <button
           key={tab.name}

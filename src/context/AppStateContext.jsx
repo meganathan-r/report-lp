@@ -4,13 +4,13 @@ import { industries, revenueBands } from "../utils/constant";
 
 const AppStateContext = createContext(null);
 
-revenueBands;
 export const AppStateProvider = ({ children }) => {
   const [activeTab, setActiveTab] = useState("tab1");
   const [industryData, setIndustryData] = useState([]);
   const [selectIndustry, setSelectIndustry] = useState(industries[0]);
   const [selectRevenueBand, setSelectRevenueBand] = useState([revenueBands[0]]);
   const { data, isLoading, isError, error } = useQueryData("industry");
+
   useEffect(() => {
     if (data && Array.isArray(data)) {
       setIndustryData(data);

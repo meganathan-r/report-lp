@@ -96,7 +96,7 @@ export default ValueCard;
 
 const Card = ({ item }) => {
   return (
-    <div className="relative bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 overflow-hidden">
+    <div className="relative bg-white p-6 rounded-lg border border-gray-200  hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 overflow-hidden">
       <h3 className="text-sm text-gray-600 font-medium mb-2">{item?.title}</h3>
       <p className="sm:text-[2rem] text-[1.5rem] font-extrabold text-bblue-500 mb-1 flex items-baseline gap-2">
         {item.pre}

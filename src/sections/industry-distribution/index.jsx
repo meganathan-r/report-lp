@@ -1,11 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import HeaderSection from "../../components/header-section";
 import { useAppStateContext } from "../../context/AppStateContext";
 import IndustryDistributionPieChart from "./IndustryDistributionPieChart";
+import useQueryData from "../../hooks/useQueryData";
 
 const IndustryDistribution = () => {
   const { industryData } = useAppStateContext();
   const [pieChartData, setPieChartData] = useState([]);
+  const { data: titleDescriptionData } = useQueryData("titleDescription");
+  const headingContent = useMemo(() => {
+    return (
+      titleDescriptionData?.find(
+        (item) => item?.section === "industryDistribution"
+      ) || {}
+    );
+  }, [titleDescriptionData]);
   useEffect(() => {
     if (Array.isArray(industryData) && industryData.length > 0) {
       const industryDetails = industryData
@@ -15,7 +24,7 @@ const IndustryDistribution = () => {
           name: item["Industry"],
           value: Number(item["N"]),
         }));
-      setPieChartData(industryDetails);
+      setPieChartData(industryDetails.sort((a, b) => b?.value - a?.value));
     }
   }, [industryData]);
 
@@ -24,17 +33,16 @@ const IndustryDistribution = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header section */}
         <HeaderSection
-          title="Industry Benchmark Analytics"
-          description="Explore performance metrics across key industries to understand
-            where you stand and how you can improve."
+          title={headingContent?.title}
+          description={headingContent?.description}
         />
         {/* Main content */}
-        <div className="flex flex-col lg:flex-row gap-12">
+        <div className="flex flex-col lg:flex-row gap-12 bg-white rounded-xl hover:shadow-md p-4 sm:p-8 card-border">
           {/* Left content */}
           <div className="lg:w-2/5">
             <div className="bg-white rounded-2xl   border-gray-200 h-full">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <span className="bg-blue-100 text-blue-700 rounded-lg w-8 h-8 flex items-center justify-center mr-3">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                <span className="bg-blue-100 text-blue-700 rounded-lg w-8 h-8 flex items-center shrink-0 justify-center mr-3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
@@ -79,10 +87,10 @@ const IndustryDistribution = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
+                    <h4 className="font-bold text-lg text-gray-900 mb-2">
                       Domain-Driven Solutions
                     </h4>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 para-text">
                       Tailored approaches addressing industry-specific
                       compliance, security, and operational requirements with
                       precision.
@@ -108,10 +116,10 @@ const IndustryDistribution = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
+                    <h4 className="font-bold text-lg text-gray-900 mb-2">
                       Technology Integration
                     </h4>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 para-text">
                       Seamless implementation of sector-specific technologies
                       and platforms for optimal performance and scalability.
                     </p>
@@ -136,10 +144,10 @@ const IndustryDistribution = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
+                    <h4 className="font-bold text-lg text-gray-900 mb-2">
                       Cross-Industry Innovation
                     </h4>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 para-text">
                       Transferring best practices between sectors to drive
                       innovation and create sustainable competitive advantages.
                     </p>
@@ -151,7 +159,7 @@ const IndustryDistribution = () => {
 
           {/* Right content - Chart */}
           <div className="lg:w-3/5">
-            <div className="bg-white rounded-2xl hover:shadow-md  p-4 card-border">
+            <div className="">
               <div className="flex justify-end items-center mb-2">
                 <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg">
                   <span className="font-medium">Total: </span>

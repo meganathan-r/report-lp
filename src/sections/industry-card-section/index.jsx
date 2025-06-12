@@ -8,11 +8,13 @@ import {
 } from "react-icons/fa";
 import IndustryCard from "./IndustryCard";
 import { useAppStateContext } from "../../context/AppStateContext";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import HeaderSection from "../../components/header-section";
+import useQueryData from "../../hooks/useQueryData";
 
 const IndustryCardsSection = () => {
   const { industryData } = useAppStateContext();
+  const { data: titleDescriptionData } = useQueryData("titleDescription");
   const [industriesCardData, setIndustriesCardData] = useState([
     {
       icon: <FaChartPie />,
@@ -47,6 +49,12 @@ const IndustryCardsSection = () => {
       iconBg: "bg-[#9f7aea1a]",
     },
   ]);
+  const headingContent = useMemo(() => {
+    return (
+      titleDescriptionData?.find((item) => item?.section === "industryCard") ||
+      {}
+    );
+  }, [titleDescriptionData]);
   useEffect(() => {
     if (Array.isArray(industryData) && industryData.length > 0) {
       const industriesCardDetails = industryData
@@ -71,10 +79,8 @@ const IndustryCardsSection = () => {
       <div className="max-w-7xl mx-auto">
         {/* heading section */}
         <HeaderSection
-          title={" Industry Benchmark Analytics"}
-          description={
-            "Explore performance metrics across key industries to understand where you stand and how you can improve."
-          }
+          title={headingContent?.title}
+          description={headingContent?.description}
         />
         {/* industries card */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
