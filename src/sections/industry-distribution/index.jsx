@@ -118,7 +118,7 @@ const IndustryDistribution = () => {
                       {point.icon}
                     </div>
                     <div>
-                      <h4 className="font-bold text-base sm:text-lg text-gray-900 mb-2">
+                      <h4 className="font-bold text-base mt-0 sm:text-lg text-gray-900 mb-2">
                         {point.title}
                       </h4>
                       <p className="text-gray-600 para-text">

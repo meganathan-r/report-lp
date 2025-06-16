@@ -32,7 +32,7 @@ const SuccessStoryCard = () => {
         {/* Content container */}
         <div className="relative z-10 p-4 sm:p-8">
           {/* Tag Section */}
-          <div className="mb-6">
+          {/* <div className="mb-6">
             <div className="flex flex-wrap gap-2">
               <span className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium py-1.5 px-4 rounded-full text-xs tracking-wide shadow-sm">
                 Scalable AR Solution
@@ -41,7 +41,7 @@ const SuccessStoryCard = () => {
                 Customer-Centric
               </span>
             </div>
-          </div>
+          </div> */}
 
           {/* Main Content */}
           <div className="mb-8">

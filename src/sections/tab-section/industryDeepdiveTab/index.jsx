@@ -7,9 +7,9 @@ import ImpactAnalysis from "./ImpactAnalysis";
 import CFOTakeAways from "./CFOTakeAways";
 import SelectInput from "../../../components/select-input";
 import { industries, revenueBands } from "../../../utils/constant";
-import ChallengesSolutionTable from "../solutionTab/ChallengesSolutionTable";
-import ImprovedCTASection from "../solutionTab/CTAsection";
-import SuccessStoryCard from "../solutionTab/SuccessStoryCard";
+import ChallengesSolutionTable from "./ChallengesSolutionTable";
+import ImprovedCTASection from "./CTAsection";
+import SuccessStoryCard from "./SuccessStoryCard";
 
 const IndustryDeepdive = ({
   handleChangeIndustry,
@@ -62,7 +62,7 @@ const IndustryDeepdive = ({
       {/* Success Stories */}
       <div className="mt-8">
         <div className="my-4 ">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">
+          <h2 className="sm:text-xl text-lg font-bold text-gray-800 mb-4">
             Success Stories in Similar Industries
           </h2>
           <SuccessStoryCard />
@@ -78,24 +78,61 @@ export default IndustryDeepdive;
 
 const challenges = [
   {
-    challenge: "Manual Follow-ups",
+    challenge: "Lack of Prioritization",
     impact:
-      "Reliance on email-based collections without prioritization or automation",
-    solution:
-      "Intelligent Workflows: Automated follow-ups based on account history, risk profile, and payment patterns",
+      "Treating all accounts equally dilutes effort, slowing down cash collection from high-risk or high-value customers.",
+    solution: [
+      {
+        impact: "AI-Powered Prioritization",
+        description:
+          "Automatically identifies and prioritizes critical accounts based on historical payment behavior",
+      },
+    ],
   },
   {
-    challenge: "Poor Risk Segmentation",
+    challenge: "Insufficient Visibility",
     impact:
-      "One-size-fits-all approach to collections without account prioritization",
-    solution:
-      "Customer Tiering: AI-driven segmentation to optimize treatment strategies and payment terms",
+      "Manual tracking and fragmented systems result in missed follow-ups, causing delayed collections",
+    solution: [
+      {
+        impact: "Real-time Dashboards",
+        description:
+          "Provides instantaneous visibility into AR processes, enabling informed, proactive decision-making.",
+      },
+      {
+        impact: "Unified AR Workspace",
+        description:
+          "Provides each collector with a live view of their accounts & tasks, speeding up their everyday processes. ",
+      },
+    ],
   },
   {
-    challenge: "Fragmented Dispute Resolution",
+    challenge: "Disconnected Teams",
     impact:
-      "No structured workflow for tracking and resolving payment disputes",
-    solution:
-      "Collaboration Hub: Streamlined dispute resolution with integrated stakeholder communication",
+      "Poor collaboration across departments hampers timely dispute resolution, delaying payments further.",
+    solution: [
+      {
+        impact: "Collaborative AR Inbox",
+        description:
+          "Centralizes all AR-related communications, enabling seamless collaboration and visibility across teams.",
+      },
+    ],
+  },
+  {
+    challenge: "Manual Inefficiencies",
+    impact:
+      "Repetitive, manual processes limit the team's ability to focus strategically, causing scalability challenges.",
+    solution: [
+      {
+        impact: "Automated Adaptive Dunning",
+        description:
+          "Uses predictive analytics to tailor follow-ups, helping AR teams anticipate delays and respond effectively.",
+      },
+      {
+        impact: "Structured Workflows",
+        description:
+          "Automates follow-up actions and escalations, significantly reducing manual efforts and ensuring timely outreach.",
+      },
+    ],
   },
 ];

@@ -1,8 +1,6 @@
-import React from "react";
-
 const ChallengeCard = ({ challenge, impact, solution }) => (
   <div className="bg-white rounded-xl border border-gray-200 hover:shadow-sm overflow-hidden transition-all">
-    <div className="p-5 space-y-4">
+    <div className="p-4 space-y-4">
       <div>
         <div className="text-sm font-semibold text-blue-700 mb-1">
           Challenge
@@ -17,7 +15,16 @@ const ChallengeCard = ({ challenge, impact, solution }) => (
         <div className="text-sm font-semibold text-gray-700 mb-1 flex items-center">
           AI Powered Solution
         </div>
-        <p className="text-gray-800">{solution}</p>
+        <div className="text-gray-800 mt-2">
+          {solution.map((item, i) => (
+            <div key={i} className="mb-4 para-text last:mb-0">
+              <p className="text-lg font-medium text-gray-900 mb-1">
+                {item.impact}
+              </p>
+              {item.description}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </div>
@@ -28,7 +35,14 @@ const ChallengeRow = ({ challenge, impact, solution }) => (
       <h3 className="font-medium text-base text-gray-900">{challenge}</h3>
     </div>
     <div className="col-span-4 text-base text-gray-600">{impact}</div>
-    <div className="col-span-5 text-base text-gray-800">{solution}</div>
+    <div className="col-span-5 text-base para-text text-gray-800">
+      {solution.map((item, i) => (
+        <div key={i} className="mb-4  last:mb-0">
+          <p className="font-medium text-black mb-1">{item.impact}</p>
+          {item.description}
+        </div>
+      ))}
+    </div>
   </div>
 );
 

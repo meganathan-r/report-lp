@@ -1,8 +1,9 @@
+import DSOCalculator from "./Calculator";
+
 const IndustrySolutions = () => {
   return (
-    <div className="divide-y  divide-gray-200">
-      {/*//! WIP */}
-      Working in Progress
+    <div className="">
+      <DSOCalculator />
     </div>
   );
 };

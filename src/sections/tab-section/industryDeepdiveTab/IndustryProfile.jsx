@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import InsightCard from "../../../components/insights-card";
+import { useEffect, useState } from "react";
 import { useAppStateContext } from "../../../context/AppStateContext";
 
 const IndustryProfile = () => {
@@ -7,7 +6,7 @@ const IndustryProfile = () => {
     useAppStateContext();
 
   const [industryProfile, setIndustryProfile] = useState([]);
-  const [keyPoints, setKeyPoints] = useState([]);
+
   useEffect(() => {
     if (Array.isArray(industryData) && industryData.length > 0) {
       const currentIndustryData = industryData?.filter(
@@ -15,26 +14,6 @@ const IndustryProfile = () => {
           industry?.Industry == selectIndustry &&
           industry?.["Revenue Range"] == selectRevenueBand
       );
-      const currentIndustryDataAll = industryData?.filter(
-        (industry) =>
-          industry?.Industry == selectIndustry &&
-          industry?.["Revenue Range"] == "All"
-      );
-      const keypointsdata = [
-        {
-          title: currentIndustryDataAll[0]?.["keypoint1Title"],
-          description: currentIndustryDataAll[0]?.["keypoint1Description"],
-        },
-        {
-          title: currentIndustryDataAll[0]?.["keypoint2Title"],
-          description: currentIndustryDataAll[0]?.["keypoint2Description"],
-        },
-        {
-          title: currentIndustryDataAll[0]?.["keypoint3Title"],
-          description: currentIndustryDataAll[0]?.["keypoint3Description"],
-        },
-      ];
-      setKeyPoints(keypointsdata);
 
       const profiledata = [
         {
@@ -71,7 +50,7 @@ const IndustryProfile = () => {
 
   return (
     <div className="mb-8">
-      <h2 className="md:text-xl text-lg font-bold text-gray-800 mb-4">
+      <h2 className="sm:text-xl text-lg font-bold text-gray-800 mb-4">
         {selectIndustry}
         {"  "}Profile
       </h2>
@@ -108,24 +87,6 @@ const IndustryProfile = () => {
           </div>
         </div>
       </div>
-      {/* WFO */}
-      {/* <InsightCard
-        title={"Key Pain Points"}
-        description={
-          <>
-            <ul className="space-y-2 text-sm">
-              {keyPoints?.map((item, i) => (
-                <li key={i} className="text-gray-700">
-                  <span className="font-semibold text-black">
-                    {item?.title}:
-                  </span>{" "}
-                  {item?.description}
-                </li>
-              ))}
-            </ul>
-          </>
-        }
-      /> */}
     </div>
   );
 };

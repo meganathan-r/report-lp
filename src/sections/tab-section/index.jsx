@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import TabNavbar from "./TabHeader";
 import CrossIndustryOverview from "./crossIndustryTab";
-import SolutionsSection from "./solutionTab";
+import SolutionsSection from "./calculatorTab";
 import IndustryDeepdive from "./industryDeepdiveTab";
 import HeaderSection from "../../components/header-section";
-import IndustrySolutions from "./solutionTab";
+import IndustrySolutions from "./calculatorTab";
 import { useAppStateContext } from "../../context/AppStateContext";
 import useQueryData from "../../hooks/useQueryData";
 

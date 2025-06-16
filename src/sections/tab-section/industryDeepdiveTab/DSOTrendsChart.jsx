@@ -53,7 +53,7 @@ const DSOTrendsChart = () => {
   return (
     <div className="mb-8 sm:mb-10 mt-4">
       {/* Chart title */}
-      <h3 className="text-lg font-bold text-gray-800 mb-4">
+      <h3 className="sm:text-xl text-lg font-bold text-gray-800 mb-4">
         DSO Trends Across Revenue Bands
       </h3>
 

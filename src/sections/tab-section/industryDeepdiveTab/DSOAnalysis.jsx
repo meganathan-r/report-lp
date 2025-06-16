@@ -66,7 +66,7 @@ const DSOAnalysis = () => {
 
   return (
     <div className="bg-white rounded-xl mb-8 sm:mb-10 mt-4 ">
-      <h2 className="text-lg font-bold text-gray-800 mb-4">
+      <h2 className="sm:text-xl text-lg font-bold text-gray-800 mb-4">
         DSO Range Analysis - Banking & Financial Services
       </h2>
 

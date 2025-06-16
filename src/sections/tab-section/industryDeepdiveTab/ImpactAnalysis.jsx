@@ -41,7 +41,7 @@ const ImpactAnalysis = () => {
   return (
     <div className="mb-8 sm:mb-10 mt-4">
       <div className="bg-white my-12 ">
-        <h3 className="text-lg font-bold text-gray-800  relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-10 after:h-0.5 after:bg-gradient-to-r after:from-primary-500 after:to-primary-600">
+        <h3 className="sm:text-xl text-lg font-bold text-gray-800  relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-10 after:h-0.5 after:bg-gradient-to-r after:from-primary-500 after:to-primary-600">
           Financial Impact Analysis
         </h3>
         {/* wip */}

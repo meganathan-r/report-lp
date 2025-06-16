@@ -36,7 +36,7 @@ const CashCycleChart = () => {
 
   return (
     <div className="mb-8 sm:mb-10 mt-4">
-      <h2 className="text-lg font-bold text-gray-800 mb-4">
+      <h2 className="sm:text-xl text-lg font-bold text-gray-800 mb-4">
         Cash Cycle Components
       </h2>
 
