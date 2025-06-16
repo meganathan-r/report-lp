@@ -3,19 +3,7 @@ import HeroChart from "./HeroChart";
 import { useAppStateContext } from "../../context/AppStateContext";
 import { useEffect, useMemo, useState } from "react";
 import useQueryData from "../../hooks/useQueryData";
-import Skeleton from "@mui/material/Skeleton";
-
-const STAT_FIELDS = [
-  { key: "N", description: "B2B Companies Analyzed" },
-  {
-    key: "Delta DSO (P75-P25)",
-    description: "Average Cash Release per 100M",
-    pre: "$",
-    suf: "M+",
-    fixed: 1,
-  },
-  { key: "P50 DPO", description: "DSO Difference", suf: "%", fixed: 1 },
-];
+import { HERO_STAT_FIELDS } from "../../utils/constant";
 
 const formatChartData = (data) =>
   data
@@ -34,7 +22,7 @@ const HeroSection = () => {
   const stats = useMemo(() => {
     if (!Array.isArray(industryData) || industryData.length === 0) return [];
     const currentIndustryData = industryData?.filter((ind) => ind?.id == "0");
-    return STAT_FIELDS.map(
+    return HERO_STAT_FIELDS.map(
       ({ key, description, pre = "", suf = "", fixed }) => ({
         description,
         pre,
@@ -52,36 +40,24 @@ const HeroSection = () => {
     }
   }, [industryData]);
   return (
-    <section className="mb-16  py-12 bg-white ">
+    <section className="mb-12  py-12 bg-white ">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-12 md:gap-16">
           {/* Text Content */}
           <div className="lg:w-1/2">
-            <h1 className="text-4xl font-title md:text-5xl font-extrabold leading-[120%] text-black mb-6">
-              {data?.find((item) => item?.section == "hero")?.title ? (
-                data?.find((item) => item?.section == "hero")?.title
-              ) : (
-                <>
-                  <Skeleton height={60} animation="wave" />
-                  <Skeleton width={210} height={60} animation="wave" />
-                </>
-              )}
+            <h1 className="text-4xl font-title md:text-5xl font-extrabold leading-[120%] text-black mb-4">
+              {data?.find((item) => item?.section == "hero")?.title}
             </h1>
+            <p className="text-lg font-semibold mb-2">
+              Unlock Your Industry's Cash Flow Potential with Data-Driven DSO
+              Benchmarks
+            </p>
             <p className="para-text mb-10 max-w-2xl">
-              {data?.find((item) => item?.section == "hero")?.description ? (
-                data?.find((item) => item?.section == "hero")?.description
-              ) : (
-                <>
-                  <Skeleton />
-                  <Skeleton animation="wave" />
-                  <Skeleton animation={false} />
-                  <Skeleton animation={false} />
-                </>
-              )}
+              {data?.find((item) => item?.section == "hero")?.description}
             </p>
 
             {/* Stats */}
-            <div className="flex flex-nowrap justify-between gap-6 mb-10">
+            {/* <div className="flex flex-nowrap justify-between gap-6 mb-10">
               {stats.map((it, i) => (
                 <div key={i} className="text-center">
                   <div className="sm:text-3xl text-2xl font-bold text-bblue-500  mb-2">
@@ -98,7 +74,7 @@ const HeroSection = () => {
                   </p>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Chart */}
@@ -108,6 +84,21 @@ const HeroSection = () => {
               <HeroChart chartData={chartData} />
             </div>
           </div>
+        </div>
+      </div>
+      <div className="max-w-2xl mt-22 mx-auto">
+        {/* Stats */}
+        <div className="flex flex-nowrap justify-between gap-6 ">
+          {stats.map((it, i) => (
+            <div key={i} className="text-center">
+              <div className="sm:text-3xl text-2xl font-bold text-bblue-500  mb-2">
+                {it?.pre}
+                <CountUp end={it.value} duration={2} decimals={it?.decimals} />
+                {it?.suf}
+              </div>
+              <p className="text-sm text--500 font-medium">{it.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -25,7 +25,7 @@ const ImprovedCTASection = () => {
   }, []);
   return (
     <div className=" pt-12  sm:pt-16 overflow-hidden ">
-      <div className="px-2 sm:px-6 lg:px-8 relative z-10">
+      <div className=" relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2  gap-16 items-center">
           {/* Content Column */}
           <div className="space-y-8">

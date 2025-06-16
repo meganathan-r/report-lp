@@ -1,4 +1,16 @@
-// used -  Industry data
+export const PIE_CHART_COLORS = [
+  "#102450",
+  "#16316E",
+  "#1B3E8A",
+  "#1D4694",
+  "#204A9D",
+  "#3C61AD",
+  "#5878BD",
+  "#A4B4E0",
+  "#CED7F0",
+];
+
+//Industry data
 export const industries = [
   "Banking & Financial Services",
   "Basic Materials & Chemicals",
@@ -35,7 +47,7 @@ export const industryData = {
   },
 };
 
-// used - Revenue bands in correct order
+// Revenue bands in correct order
 export const revenueBands = [
   "All",
   "$1-50M",
@@ -124,6 +136,11 @@ export const challenges = [
       "Collaboration Hub: Streamlined dispute resolution with integrated stakeholder communication",
   },
 ];
+export const TABS_TITLE = [
+  { name: "tab1", value: "Cross Industry Overview" },
+  { name: "tab2", value: "Industry Deep-dive" },
+  { name: "tab3", value: "Calculator" },
+];
 
 // used - Links
 export const INDUSTY_DATA_URL =
@@ -134,3 +151,15 @@ export const TESTIMONIALS_DATA_URL =
 
 export const TITLE_DESCRIPTION_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vRB4Cue4lJtn87rs2mMSaOao_6nvOE6qcU6COHPp0NvavDyAueXC1L-TsV871VA6mu2F6OIFUvkM_fe/pub?gid=1119432661&single=true&output=csv";
+
+export const HERO_STAT_FIELDS = [
+  { key: "N", description: "B2B Companies Analyzed" },
+  {
+    key: "Delta DSO (P75-P25)",
+    description: "Average Cash Release per 100M",
+    pre: "$",
+    suf: "M+",
+    fixed: 1,
+  },
+  { key: "P50 DPO", description: "DSO Difference", suf: "%", fixed: 1 },
+];

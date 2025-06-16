@@ -8,9 +8,11 @@ import {
   ResponsiveContainer,
   Cell,
   Tooltip,
+  LabelList,
 } from "recharts";
 import { useAppStateContext } from "../../../context/AppStateContext";
 import CustomTooltip from "../../../components/tooltip";
+import CTable from "../../../components/table";
 
 const DSOAnalysis = () => {
   const { selectIndustry, industryData, selectRevenueBand } =
@@ -60,7 +62,7 @@ const DSOAnalysis = () => {
       ];
       setDsoData(chartData);
     }
-  }, [selectIndustry, selectRevenueBand]);
+  }, [selectIndustry, industryData, selectRevenueBand]);
 
   return (
     <div className="bg-white rounded-xl mb-8 sm:mb-10 mt-4 ">
@@ -68,10 +70,16 @@ const DSOAnalysis = () => {
         DSO Range Analysis - Banking & Financial Services
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left Column - Progress Bars */}
         <div className="space-y-6">
-          {dsoData.map((item, index) => (
+          <CTable
+            tableHeading={["", "DSO"]}
+            cols={["name", "value"]}
+            data={dsoData}
+            suf=" days"
+          />
+          {/* {dsoData.map((item, index) => (
             <div key={index}>
               <div className="flex justify-between mb-1">
                 <span className="text-gray-700">{item.name}</span>
@@ -84,20 +92,11 @@ const DSOAnalysis = () => {
                 ></div>
               </div>
             </div>
-          ))}
-{/* 
-          <div className="pt-4 mt-4 border-t border-gray-100">
-            <p className="text-sm text-gray-600">
-              <span className="text-black font-medium">DSO Opportunity:</span>{" "}
-              Moving from P75 ({dsoData[2]?.value} days) to P25 (
-              {dsoData[0]?.value} days) would release approximately $4.7M per
-              $100M revenue.
-            </p>
-          </div> */}
+          ))} */}
         </div>
 
         {/* Right Column - Bar Chart */}
-        <div className="h-64 w-full p-4 bg-white rounded-lg border border-gray-200">
+        <div className="h-64 w-full bg-white rounded-lg ">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={dsoData}
@@ -119,7 +118,7 @@ const DSOAnalysis = () => {
               />
               <YAxis
                 domain={[0, 32]}
-                ticks={[0, 8, 16, 24, 32]}
+                ticks={[0, 25, 50, 75, 100]}
                 axisLine={{ stroke: "#666" }}
                 tickLine={{ stroke: "#666" }}
                 tick={{ fill: "#666", fontSize: 14 }}
@@ -133,6 +132,11 @@ const DSOAnalysis = () => {
                     strokeWidth={10}
                   />
                 ))}
+                <LabelList
+                  dataKey="value"
+                  position="top"
+                  style={{ fill: "#333", fontSize: 12, fontWeight: 600 }}
+                />
               </Bar>
               <Tooltip
                 cursor={false}

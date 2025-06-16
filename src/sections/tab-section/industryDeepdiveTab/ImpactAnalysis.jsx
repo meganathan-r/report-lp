@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import InsightCard from "../../../components/insights-card";
 import { useAppStateContext } from "../../../context/AppStateContext";
+import CTable from "../../../components/table";
 
 const ImpactAnalysis = () => {
   const [tableData, setTableData] = useState([]);
@@ -40,34 +41,20 @@ const ImpactAnalysis = () => {
   return (
     <div className="mb-8 sm:mb-10 mt-4">
       <div className="bg-white my-12 ">
-        <h3 className="text-lg font-bold text-gray-800 mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-10 after:h-0.5 after:bg-gradient-to-r after:from-primary-500 after:to-primary-600">
-          Financial Impact Analysis per day
+        <h3 className="text-lg font-bold text-gray-800  relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-10 after:h-0.5 after:bg-gradient-to-r after:from-primary-500 after:to-primary-600">
+          Financial Impact Analysis
         </h3>
-
-        <table className="w-full  lg:col-span-2 space-y-6 border-collapse rounded-lg">
-          <thead>
-            <tr className="">
-              <th className="bg-gray-50 font-semibold text-gray-700 text-sm text-left px-4 py-4 border-b border-gray-200">
-                Key Metrics
-              </th>
-              <th className="bg-gray-50 font-semibold text-gray-700 text-sm text-left px-4 py-4 border-b border-gray-200">
-                Improvement DSO per day
-              </th>
-            </tr>
-          </thead>
-          <tbody className="text-sm text-gray-600">
-            {tableData.map((item, i) => (
-              <tr key={i}>
-                <td className="px-4 py-4 border-b border-gray-200">
-                  {item.title}
-                </td>
-                <td className="px-4 py-4 border-b border-gray-200 text-primary-600 font-semibold">
-                  {item.value}x
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {/* wip */}
+        <p className="para-text mb-4">
+          See how much absolute change is expected per day of DSO improvement to
+          key metrics
+        </p>
+        <CTable
+          suf="x"
+          cols={["title", "value"]}
+          tableHeading={["Key Metrics", "Impact per day of DSO improvement"]}
+          data={tableData}
+        />
         <InsightCard
           title="Strategic Insights"
           description={

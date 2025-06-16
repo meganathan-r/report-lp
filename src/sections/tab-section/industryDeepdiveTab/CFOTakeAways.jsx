@@ -9,7 +9,7 @@ const CFOTakeAways = () => {
       <h3 className="text-lg font-bold text-gray-800 mb-4">
         Key CFO Take-Aways
       </h3>
-      <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+      <div className="bg-gray-50 p-6 rounded-lg ">
         <ul className="space-y-3">
           <li className="flex">
             <div className="flex-shrink-0 hidden sm:flex w-6 h-6 rounded-full bg-blue-100 items-center justify-center mr-3 mt-0.5">

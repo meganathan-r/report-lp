@@ -43,7 +43,7 @@ const ChallengesSolutionTable = ({ challenges }) => {
       </div>
 
       {/* Desktop View */}
-      <div className="hidden md:block rounded-lg border border-gray-200 bg-white overflow-hidden">
+      <div className="hidden md:block rounded-lg bg-white overflow-hidden">
         <div className="grid grid-cols-12 gap-8 bg-gray-50 p-4 text-sm font-medium text-gray-700">
           <div className="col-span-3">Challenge</div>
           <div className="col-span-4">Impact</div>

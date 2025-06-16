@@ -16,10 +16,11 @@ const ValueCard = () => {
 
       const cardData = [
         {
-          title: "Cash Cycle",
-          suf: " days",
-          value: currentIndustryData[0]?.["Median CCC"],
-          description: "DSO + DIO - DPO = Cash Conversion Cycle",
+          title: "DSO Range",
+          value: `${currentIndustryData[0]?.["P25 DSO"] || 0} - ${
+            currentIndustryData[0]?.["P75 DSO"] || 0
+          }`,
+          description: "Days Sales Outstanding (P25-P75)",
         },
         {
           title: "Cash Release Opportunity",
@@ -40,38 +41,6 @@ const ValueCard = () => {
           ).toFixed(1),
           description: "Operating NWC as % of Revenue",
         },
-        {
-          title: "DSO Range",
-          value: `${currentIndustryData[0]?.["P25 DSO"] || 0} - ${
-            currentIndustryData[0]?.["P75 DSO"] || 0
-          }`,
-          description: "Days Sales Outstanding (P25-P75)",
-        },
-        {
-          title: "Interest Saved",
-          pre: "$",
-          suf:
-            Number(
-              currentIndustryData[0]?.["Interest Saved per $100M Revenue"]
-            ) < 1000000
-              ? "K"
-              : "M",
-          value:
-            Number(
-              currentIndustryData[0]?.["Interest Saved per $100M Revenue"]
-            ) < 1000000
-              ? (
-                  Number(
-                    currentIndustryData[0]?.["Interest Saved per $100M Revenue"]
-                  ) / 1000
-                ).toFixed(2)
-              : (
-                  Number(
-                    currentIndustryData[0]?.["Interest Saved per $100M Revenue"]
-                  ) / 1000000
-                ).toFixed(2),
-          description: "Per $100M revenue",
-        },
       ];
       setDataValues(cardData);
     }
@@ -80,7 +49,7 @@ const ValueCard = () => {
   return (
     <>
       <h2 className="sm:text-xl text-lg font-bold text-gray-800 mb-4">
-        {selectIndustry}: {selectRevenueBand} Revenue Band
+        Improvement Potential: {selectRevenueBand} Revenue Band
       </h2>
       {/* card section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">

@@ -57,7 +57,7 @@ const IndustryProfile = () => {
           title: "Working Capital/Revenue",
           value: `${(
             Number(currentIndustryData[0]?.["Median OpNWC_to_Rev"]) * 100
-          ).toFixed(3)}x`,
+          ).toFixed(2)}%`,
         },
         {
           title: "DSO Impact on Working Capital",
@@ -77,10 +77,7 @@ const IndustryProfile = () => {
       </h2>
 
       <div className="mb-6">
-        <h3 className="text-base font-medium text-gray-700 ">
-          Industry Characteristics
-        </h3>
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+        <div className="bg-gray-50  rounded-lg p-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {industryProfile?.map(
               (item, i) =>
@@ -112,7 +109,7 @@ const IndustryProfile = () => {
         </div>
       </div>
       {/* WFO */}
-      <InsightCard
+      {/* <InsightCard
         title={"Key Pain Points"}
         description={
           <>
@@ -128,7 +125,7 @@ const IndustryProfile = () => {
             </ul>
           </>
         }
-      />
+      /> */}
     </div>
   );
 };

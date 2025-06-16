@@ -1,40 +1,105 @@
 name: Deploy to S3 CDN
 
 on:
-  push:
-    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      ref:
+        required: false
+        description: branch or tag name
+        default: ""
+      version:
+        required: true
+        description: version to identify release with
 
 jobs:
-  deploy:
+  build-react-app:
+    name: Build React App for CDN
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build project
-      run: npm run build
-      
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
-        
-    - name: Upload to S3
-      run: |
-        aws s3 cp dist/style.css s3://${{ secrets.S3_BUCKET_NAME }}/style.css
-        aws s3 cp dist/script.js s3://${{ secrets.S3_BUCKET_NAME }}/script.js
-        echo "Files uploaded successfully!"
-        echo "CSS: https://${{ secrets.S3_BUCKET_NAME }}.s3.${{ secrets.AWS_REGION }}.amazonaws.com/style.css"
-        echo "JS: https://${{ secrets.S3_BUCKET_NAME }}.s3.${{ secrets.AWS_REGION }}.amazonaws.com/script.js"
+      - name: Print deployer name
+        run: echo "deployer is ${{ github.actor }}"
+
+      - name: Check if base branch is master
+        id: check-base-branch
+        if: ${{ github.ref != 'refs/heads/master' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.setFailed("The workflow has to be triggered from master branch")
+
+      - name: Check if authorized to run this workflow
+        id: check-actor
+        if: ${{ !contains(vars.AUTHORIZED_USERS, github.actor) }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.setFailed("You're not authorized to run this workflow, please contact raja@growfin.ai")
+
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref }}
+
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install Node Modules
+        run: npm ci
+
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 4
+
+      - name: Build React App
+        run: npm run build
+
+      - name: Archive Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-build-cdn
+          path: dist
+
+  publish-to-S3:
+    name: Deploy CDN assets to S3
+    runs-on: ubuntu-latest
+    needs: ["build-react-app"]
+
+    steps:
+      - name: Get build files
+        uses: actions/download-artifact@v4
+        with:
+          name: react-build-cdn
+          path: dist
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload CDN files to S3
+        run: |
+          # Upload CSS file with version
+          aws s3 cp dist/style.css s3://${{ secrets.S3_BUCKET_NAME }}/css/v${{ github.event.inputs.version }}-style.css --acl public-read --content-type "text/css"
+          # Upload JS file with version
+          aws s3 cp dist/script.js s3://${{ secrets.S3_BUCKET_NAME }}/js/v${{ github.event.inputs.version }}-script.js --acl public-read --content-type "application/javascript"
+          # Upload latest versions
+          aws s3 cp dist/style.css s3://${{ secrets.S3_BUCKET_NAME }}/css/latest-style.css --acl public-read --content-type "text/css"
+          aws s3 cp dist/script.js s3://${{ secrets.S3_BUCKET_NAME }}/js/latest-script.js --acl public-read --content-type "application/javascript"
+
+          echo "Files uploaded successfully!"
+          echo "CSS (versioned): https://${{ secrets.S3_BUCKET_NAME }}.s3.${{ secrets.AWS_REGION }}.amazonaws.com/css/v${{ github.event.inputs.version }}-style.css"
+          echo "JS (versioned): https://${{ secrets.S3_BUCKET_NAME }}.s3.${{ secrets.AWS_REGION }}.amazonaws.com/js/v${{ github.event.inputs.version }}-script.js"
+          echo "CSS (latest): https://${{ secrets.S3_BUCKET_NAME }}.s3.${{ secrets.AWS_REGION }}.amazonaws.com/css/latest-style.css"
+          echo "JS (latest): https://${{ secrets.S3_BUCKET_NAME }}.s3.${{ secrets.AWS_REGION }}.amazonaws.com/js/latest-script.js"
+
+      - name: Clear CDN cache
+        if: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID != '' }}
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/css/*" "/js/*"

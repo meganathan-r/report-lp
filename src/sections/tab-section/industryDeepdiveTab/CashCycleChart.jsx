@@ -41,7 +41,7 @@ const CashCycleChart = () => {
       </h2>
 
       {/* Chart Container */}
-      <div className="h-64 col-span-2 bg-white p-2 rounded-lg border border-gray-200 hover:shadow-md">
+      <div className="h-64 col-span-2 bg-white p-2 rounded-lg  ">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={cashCycleData}

@@ -7,29 +7,18 @@ import {
   Legend,
 } from "recharts";
 import useMobileDevice from "../../hooks/useMobileDevice";
+import { PIE_CHART_COLORS } from "../../utils/constant";
 
-// Color palette
-const COLORS = [
-  "#102450",
-  "#16316E",
-  "#1B3E8A",
-  "#1D4694",
-  "#204A9D",
-  "#3C61AD",
-  "#5878BD",
-  "#A4B4E0",
-  "#CED7F0",
-];
 const CustomTooltip = ({ active, payload, total }) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white p-4 border border-gray-200 shadow-lg rounded-md">
         <div className="flex items-center mb-2">
           <div
-            className="w-3.5 h-3.5 rounded-sm mr-3"
+            className="w-3.5 h-3.5 shrink-0 rounded-sm mr-3"
             style={{ backgroundColor: payload[0].payload.fill }}
           ></div>
-          <p className="font-bold text-gray-900">{payload[0].name}</p>
+          <p className="font-bold text-base text-gray-900">{payload[0].name}</p>
         </div>
         <div className="flex justify-between items-center mb-1">
           <span className="text-gray-600">Total:</span>
@@ -66,7 +55,7 @@ const IndustryDistributionPieChart = ({ data }) => {
             {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
+                fill={PIE_CHART_COLORS[index % PIE_CHART_COLORS.length]}
                 stroke="#ffffff"
                 strokeWidth={1}
                 style={{ outline: "none" }}

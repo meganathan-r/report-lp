@@ -1,13 +1,9 @@
-const TabNavbar = ({ activeTab, setActiveTab }) => {
-  const tabs = [
-    { name: "tab1", value: "Cross Industry Overview" },
-    { name: "tab2", value: "Industry Deep-dive" },
-    { name: "tab3", value: "Challenges & Solutions" },
-  ];
+import { TABS_TITLE } from "../../utils/constant";
 
+const TabNavbar = ({ activeTab, setActiveTab }) => {
   return (
     <div className="grid overflow-hidden rounded-t-[7px] grid-cols-3 gap-0  flex-wrap bg-[#f0f9ff] border-b border-slate-200">
-      {tabs.map((tab) => (
+      {TABS_TITLE.map((tab) => (
         <button
           key={tab.name}
           onClick={() => setActiveTab(tab.name)}
