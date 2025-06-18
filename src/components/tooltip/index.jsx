@@ -16,7 +16,8 @@ const CustomTooltip = ({ active, payload, label, defalutLable, metric }) => {
               ></div>
               <span className="text-gray-600">{entry.name}: </span>
               <span className="font-semibold ml-1">
-                {entry.value} {metric}
+                {entry.value}
+                {metric}
               </span>
             </div>
           ))}

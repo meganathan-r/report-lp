@@ -8,16 +8,15 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Label,
 } from "recharts";
 import InsightCard from "../../../components/insights-card";
 import { useAppStateContext } from "../../../context/AppStateContext";
-import CustomTooltip from "../../../components/tooltip";
 
 // Custom tooltip
 
 const DSOTrendsChart = () => {
-  const { selectIndustry, industryData, selectRevenueBand } =
-    useAppStateContext();
+  const { selectIndustry, industryData } = useAppStateContext();
   const [revenueBandChart, setRevenueBandChart] = useState([]);
   // Chart data
   const orderMap = {
@@ -39,7 +38,7 @@ const DSOTrendsChart = () => {
         dso: item?.["P50 DSO"],
         cashRelease: (
           Number(item?.["Cash Released (P25) per $100M Revenue"]) / 1000000
-        )?.toFixed(2),
+        )?.toFixed(1),
       }));
       const sortedData = revenueBandData.sort((a, b) => {
         const orderA = orderMap[a.name] !== undefined ? orderMap[a.name] : 999;
@@ -51,7 +50,7 @@ const DSOTrendsChart = () => {
   }, [selectIndustry]);
 
   return (
-    <div className="mb-8 sm:mb-10 mt-4">
+    <div className="mb-8 sm:mb-14 mt-4">
       {/* Chart title */}
       <h3 className="sm:text-xl text-lg font-bold text-gray-800 mb-4">
         DSO Trends Across Revenue Bands
@@ -70,7 +69,21 @@ const DSOTrendsChart = () => {
               tick={{ fill: "#666", fontSize: 12 }}
               tickLine={{ stroke: "#666" }}
               axisLine={{ stroke: "#666" }}
-            />
+            >
+              <Label
+                value="Revenue Bands"
+                angle={0}
+                position="center"
+                offset={130}
+                dy={20}
+                style={{
+                  textAnchor: "middle",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  fill: "#374151",
+                }}
+              />
+            </XAxis>
             <YAxis
               yAxisId="left"
               orientation="left"
@@ -81,7 +94,20 @@ const DSOTrendsChart = () => {
               axisLine={{ stroke: "#666" }}
               tickCount={5}
               tickFormatter={(value) => value}
-            />
+            >
+              <Label
+                value="Days"
+                angle={-90}
+                position="insideLeft"
+                offset={15}
+                style={{
+                  textAnchor: "middle",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  fill: "#374151",
+                }}
+              />
+            </YAxis>
             <YAxis
               yAxisId="right"
               orientation="right"
@@ -93,7 +119,9 @@ const DSOTrendsChart = () => {
               tickCount={5}
               tickFormatter={(value) => value}
             />
-            <Tooltip content={<CustomTooltip metric="M" />} />
+            <Tooltip
+              content={<CustomTooltip days={true} to={1} pre="$" metric="M" />}
+            />
             <Legend
               wrapperStyle={{
                 bottom: 0,
@@ -112,7 +140,7 @@ const DSOTrendsChart = () => {
               yAxisId="left"
               type="monotone"
               dataKey="dso"
-              name="Median DSO (days)"
+              name="Median DSO"
               stroke="#1E3A8A"
               strokeWidth={2}
               dot={{ r: 4, stroke: "#1E3A8A", strokeWidth: 2, fill: "#fff" }}
@@ -122,7 +150,7 @@ const DSOTrendsChart = () => {
               yAxisId="right"
               type="monotone"
               dataKey="cashRelease"
-              name="Cash Release Potential ($M)"
+              name="Cash Release Potential"
               stroke="#22C55E"
               strokeWidth={2}
               dot={{ r: 4, stroke: "#22C55E", strokeWidth: 2, fill: "#fff" }}
@@ -133,7 +161,7 @@ const DSOTrendsChart = () => {
       </div>
 
       {/* Analysis box */}
-      <InsightCard
+      {/* <InsightCard
         title="Revenue Band Analysis"
         description={
           <>
@@ -148,9 +176,39 @@ const DSOTrendsChart = () => {
             P25 levels, improving both liquidity and profitability.
           </>
         }
-      />
+      /> */}
     </div>
   );
 };
 
 export default DSOTrendsChart;
+
+const CustomTooltip = ({ active, payload, label, defalutLable, metric }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-4 border max-w-[200px] sm:max-w-[400px] border-gray-200 shadow-lg rounded-md">
+        <p className="font-bold text-gray-800">
+          {`${defalutLable ? payload[0].payload.label + " -" : ""} `} {label}
+        </p>
+        <div className="mt-2">
+          {payload.map((entry, index) => (
+            <div key={index} className="flex flex-wrap items-center py-1">
+              <div
+                className="w-3 h-3 mr-2 rounded-sm"
+                style={{
+                  backgroundColor: entry.color || payload[0].payload?.color,
+                }}
+              ></div>
+              <span className="text-gray-600">{entry.name}: </span>
+              <span className="font-semibold ml-1">
+                {entry.value}
+                {index % 2 ? "M" : "Days"}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  return null;
+};

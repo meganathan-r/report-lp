@@ -45,36 +45,16 @@ const HeroSection = () => {
         <div className="flex flex-col lg:flex-row items-center gap-12 md:gap-16">
           {/* Text Content */}
           <div className="lg:w-1/2">
+            <p className="text-lg text-gray-600 font-semibold mb-2">
+              {data?.find((item) => item?.section == "hero")?.subHeading1}
+            </p>
             <h1 className="text-4xl font-title md:text-5xl font-extrabold leading-[120%] text-black mb-4">
               {data?.find((item) => item?.section == "hero")?.title}
             </h1>
-            <p className="text-lg font-semibold mb-2">
-              Unlock Your Industry's Cash Flow Potential with Data-Driven DSO
-              Benchmarks
-            </p>
+
             <p className="para-text mb-10 max-w-2xl">
               {data?.find((item) => item?.section == "hero")?.description}
             </p>
-
-            {/* Stats */}
-            {/* <div className="flex flex-nowrap justify-between gap-6 mb-10">
-              {stats.map((it, i) => (
-                <div key={i} className="text-center">
-                  <div className="sm:text-3xl text-2xl font-bold text-bblue-500  mb-2">
-                    {it?.pre}
-                    <CountUp
-                      end={it.value}
-                      duration={2}
-                      decimals={it?.decimals}
-                    />
-                    {it?.suf}
-                  </div>
-                  <p className="text-sm text--500 font-medium">
-                    {it.description}
-                  </p>
-                </div>
-              ))}
-            </div> */}
           </div>
 
           {/* Chart */}
@@ -86,12 +66,12 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-2xl mt-22 mx-auto">
+      <div className="max-w-2xl mt-18 mx-auto">
         {/* Stats */}
         <div className="flex flex-nowrap justify-between gap-6 ">
           {stats.map((it, i) => (
             <div key={i} className="text-center">
-              <div className="sm:text-3xl text-2xl font-bold text-bblue-500  mb-2">
+              <div className="sm:text-4xl text-2xl font-bold text-bblue-500  mb-2">
                 {it?.pre}
                 <CountUp end={it.value} duration={2} decimals={it?.decimals} />
                 {it?.suf}

@@ -33,7 +33,7 @@ const HeroChart = ({ chartData }) => {
     >
       <AreaChart
         data={chartData}
-        margin={{ top: 10, right: 10, left: 0, bottom: 10 }}
+        margin={{ top: 10, right: 10, left: 0, bottom: 20 }}
       >
         <defs>
           <linearGradient id="colorP50DSO" x1="0" y1="0" x2="0" y2="1">
@@ -74,7 +74,21 @@ const HeroChart = ({ chartData }) => {
           tickLine={false}
           tick={{ fill: COLORS.AXIS, fontSize: 12 }}
           padding={{ left: 5, right: 5 }}
-        />
+        >
+          <Label
+            value="Industries"
+            angle={0}
+            position="center"
+            offset={130}
+            dy={20}
+            style={{
+              textAnchor: "middle",
+              fontSize: 14,
+              fontWeight: 600,
+              fill: "#374151",
+            }}
+          />
+        </XAxis>
 
         <YAxis
           domain={[30, 60]}
@@ -84,14 +98,15 @@ const HeroChart = ({ chartData }) => {
           tickCount={7}
         >
           <Label
-            value="DSO (Days)"
-            position="insideLeft"
+            value="Days"
             angle={-90}
-            offset={-20}
+            position="insideLeft"
+            offset={15}
             style={{
               textAnchor: "middle",
-              fill: COLORS.AXIS,
-              fontSize: 12,
+              fontSize: 14,
+              fontWeight: 600,
+              fill: "#374151",
             }}
           />
         </YAxis>
@@ -114,7 +129,7 @@ const HeroChart = ({ chartData }) => {
         <Area
           type="monotone"
           dataKey="P50 DSO"
-          name="P50 DSO"
+          name="Median DSO"
           stroke={COLORS.YOUR_COMPANY}
           fill={GRADIENTS.YOUR_COMPANY}
           strokeWidth={2}

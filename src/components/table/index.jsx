@@ -16,10 +16,10 @@ const CTable = ({ data, tableHeading, cols, suf }) => {
       <tbody className="text-sm text-gray-600">
         {data?.map((row, rowInd) => (
           <tr key={rowInd}>
-            {cols?.map((colKey) => (
+            {cols?.map((colKey, i) => (
               <td className="px-4 py-4 border-b border-gray-200">
                 {row[colKey]}
-                {suf}
+                {i % 2 ? suf : ""}
               </td>
             ))}
           </tr>

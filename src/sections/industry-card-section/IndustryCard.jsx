@@ -34,7 +34,8 @@ const IndustryCard = ({ industry, index }) => {
                 {industry?.p75} → {industry?.p25}
               </div>
               <div className="text-sm text-[#64748b]">
-                DSO <br /> P75 → P25
+                DSO <br />
+                Bottom vs Top
               </div>
 
               <div className="absolute right-0 top-1/2 transform -translate-y-1/2 h-9 w-px bg-[#e2e8f0]" />

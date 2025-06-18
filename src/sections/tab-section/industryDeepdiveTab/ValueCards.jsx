@@ -34,12 +34,15 @@ const ValueCard = () => {
           description: "Per $100M revenue by meeting P25 DSO",
         },
         {
-          title: "Working Capital/Revenue",
-          suf: "%",
+          title: "Interest Saved/Revenue",
+          pre: "$",
+          suf: "M",
           value: (
-            Number(currentIndustryData[0]?.["Median OpNWC_to_Rev"]) * 100
+            Number(
+              currentIndustryData[0]?.["Interest Saved per $100M Revenue"]
+            ) / 1000000
           ).toFixed(1),
-          description: "Operating NWC as % of Revenue",
+          description: "Interest Saved per $100M Revenue",
         },
       ];
       setDataValues(cardData);
@@ -68,14 +71,15 @@ const Card = ({ item }) => {
     <div className="relative bg-white p-6 rounded-lg border border-gray-200  hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 overflow-hidden">
       <h3 className="text-sm text-gray-600 font-medium mb-2">{item?.title}</h3>
       <p className="sm:text-[2rem] text-[1.5rem] font-extrabold text-bblue-500 mb-1 flex items-baseline gap-2">
-        {item.pre}
-        {item.title == "DSO Range" ? (
-          item.value
-        ) : (
-          <CountUp end={Number(item?.value)} duration={1} decimals={1} />
-        )}
-        {/* {item.value} */}
-        {item.suf}
+        {item.title === "DSO Range"
+          ? item.value
+          : item.value > 0 && (
+              <span>
+                {item.pre}
+                <CountUp end={Number(item?.value)} duration={1} decimals={1} />
+                {item.suf}
+              </span>
+            )}
       </p>
       <p className="text-xs text-gray-500 leading-snug">{item?.description}</p>
     </div>

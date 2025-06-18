@@ -46,9 +46,9 @@ const ImprovedCTASection = () => {
             </p>
 
             <div className="space-y-6">
-              <h2 className="text-xl font-bold text-gray-800 border-l-4 border-bblue-500 pl-4 py-1">
+              {/* <h2 className="text-xl font-bold text-gray-800 border-l-4 border-bblue-500 pl-4 py-1">
                 Key Benefits:
-              </h2>
+              </h2> */}
 
               <div className="space-y-5">
                 <BenefitItem
@@ -128,7 +128,7 @@ const ImprovedCTASection = () => {
 export default ImprovedCTASection;
 
 const BenefitItem = ({ icon, title, description }) => (
-  <div className="flex items-start bg-white p-3 rounded-lg border border-gray-200 hover:shadow-md transition-all">
+  <div className="flex items-start bg-white py-3 rounded-lg ">
     <div className="flex-shrink-0 mt-1 bg-blue-50 p-2 rounded-lg text-bblue-500">
       {icon}
     </div>

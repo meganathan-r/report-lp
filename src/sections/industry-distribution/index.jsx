@@ -24,11 +24,12 @@ const IndustryDistribution = () => {
           name: item["Industry"],
           value: Number(item["N"]),
         }));
+      //!  WIP
       setPieChartData(industryDetails.sort((a, b) => b?.value - a?.value));
     }
   }, [industryData]);
 
-  const keyPoints = [
+  const INDUSTRY_DISTRIBUTION_KEY_POINTS = [
     {
       icon: (
         <svg
@@ -107,12 +108,8 @@ const IndustryDistribution = () => {
           {/* Left content */}
           <div className="lg:w-2/5">
             <div className="bg-white rounded-2xl   border-gray-200 h-full">
-              {/* <h3 className="text-xl font-semibold text-gray-900 mb-8 pb-2 border-b border-gray-100">
-                Industry Performance Insights
-              </h3> */}
-
               <div className="space-y-6">
-                {keyPoints.map((point, id) => (
+                {INDUSTRY_DISTRIBUTION_KEY_POINTS.map((point, id) => (
                   <div key={id} className="flex items-start">
                     <div className="bg-blue-50 rounded-md p-1 mr-4 flex-shrink-0">
                       {point.icon}

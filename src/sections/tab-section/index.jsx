@@ -4,7 +4,7 @@ import CrossIndustryOverview from "./crossIndustryTab";
 import SolutionsSection from "./calculatorTab";
 import IndustryDeepdive from "./industryDeepdiveTab";
 import HeaderSection from "../../components/header-section";
-import IndustrySolutions from "./calculatorTab";
+import Calculator from "./calculatorTab";
 import { useAppStateContext } from "../../context/AppStateContext";
 import useQueryData from "../../hooks/useQueryData";
 
@@ -55,7 +55,7 @@ const BenchmarkAnalytics = () => {
             />
           )}
           {activeTab === "tab3" && (
-            <IndustrySolutions
+            <Calculator
               selectIndustry={selectIndustry}
               handleChangeIndustry={handleChangeIndustry}
             />

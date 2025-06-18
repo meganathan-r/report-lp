@@ -9,9 +9,9 @@ import {
   Cell,
   Tooltip,
   LabelList,
+  Label,
 } from "recharts";
 import { useAppStateContext } from "../../../context/AppStateContext";
-import CustomTooltip from "../../../components/tooltip";
 import CTable from "../../../components/table";
 
 const DSOAnalysis = () => {
@@ -27,6 +27,7 @@ const DSOAnalysis = () => {
       );
       const chartData = [
         {
+          label: "Top",
           name: "Top Performers (P25)",
           value: currentIndustryData[0]?.["P25 DSO"],
           width: `${
@@ -38,7 +39,8 @@ const DSOAnalysis = () => {
           bgColor: "bg-[#204A9D]",
         },
         {
-          name: "P25 to  Median",
+          label: "Median",
+          name: "Median Performers (P50)",
           value: currentIndustryData[0]?.["P50 DSO"],
           width: `${
             (Number(currentIndustryData[0]?.["P50 DSO"]) /
@@ -49,7 +51,8 @@ const DSOAnalysis = () => {
           bgColor: "bg-[#5878BD]",
         },
         {
-          name: "Median to P75",
+          label: "Bottom",
+          name: "Bottom Performers (P75)",
           value: currentIndustryData[0]?.["P75 DSO"],
           width: `${
             (Number(currentIndustryData[0]?.["P75 DSO"]) /
@@ -79,20 +82,6 @@ const DSOAnalysis = () => {
             data={dsoData}
             suf=" days"
           />
-          {/* {dsoData.map((item, index) => (
-            <div key={index}>
-              <div className="flex justify-between mb-1">
-                <span className="text-gray-700">{item.name}</span>
-                <span className="font-semibold">{item.value} days</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
-                <div
-                  className={`${item?.bgColor} h-2.5 rounded-full`}
-                  style={{ width: item.width }}
-                ></div>
-              </div>
-            </div>
-          ))} */}
         </div>
 
         {/* Right Column - Bar Chart */}
@@ -110,7 +99,7 @@ const DSOAnalysis = () => {
                 vertical={false}
               />
               <XAxis
-                dataKey="name"
+                dataKey="label"
                 axisLine={{ stroke: "#666" }}
                 tickLine={{ stroke: "#666" }}
                 tick={{ fill: "#666", fontSize: 14 }}
@@ -123,7 +112,20 @@ const DSOAnalysis = () => {
                 tickLine={{ stroke: "#666" }}
                 tick={{ fill: "#666", fontSize: 14 }}
                 tickMargin={10}
-              />
+              >
+                <Label
+                  value="Days"
+                  angle={-90}
+                  position="insideLeft"
+                  offset={15}
+                  style={{
+                    textAnchor: "middle",
+                    fontSize: 14,
+                    fontWeight: 600,
+                    fill: "#374151",
+                  }}
+                />
+              </YAxis>
               <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                 {dsoData.map((entry, index) => (
                   <Cell
@@ -156,3 +158,30 @@ const DSOAnalysis = () => {
 };
 
 export default DSOAnalysis;
+
+const CustomTooltip = ({ active, payload, metric }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-4 border max-w-[200px] sm:max-w-[400px] border-gray-200 shadow-lg rounded-md">
+        <p className="font-bold text-gray-800">{payload[0]?.payload?.name}</p>
+        <div className="mt-2">
+          {payload.map((entry, index) => (
+            <div key={index} className="flex flex-wrap items-center py-1">
+              <div
+                className="w-3 h-3 mr-2 rounded-sm"
+                style={{
+                  backgroundColor: entry.color || payload[0].payload?.color,
+                }}
+              ></div>
+              <span className="text-gray-600">{entry.name}: </span>
+              <span className="font-semibold ml-1">
+                {entry.value} {metric}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  return null;
+};

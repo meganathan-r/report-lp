@@ -50,7 +50,21 @@ const SingleBarChart = ({
               tickLine={false}
               axisLine={false}
               height={60}
-            />
+            >
+              <Label
+                value="Industries"
+                angle={0}
+                position="center"
+                offset={130}
+                dy={20}
+                style={{
+                  textAnchor: "middle",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  fill: "#374151",
+                }}
+              />
+            </XAxis>
 
             <YAxis
               domain={[0, 100]}
@@ -60,7 +74,7 @@ const SingleBarChart = ({
               axisLine={false}
             >
               <Label
-                value="Percentage"
+                value="Days"
                 angle={-90}
                 position="insideLeft"
                 offset={-10}

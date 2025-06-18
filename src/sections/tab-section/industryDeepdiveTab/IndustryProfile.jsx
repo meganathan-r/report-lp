@@ -40,7 +40,10 @@ const IndustryProfile = () => {
         },
         {
           title: "DSO Impact on Working Capital",
-          value: Number(currentIndustryData[0]?.["Partial_R2_DSO"]).toFixed(2),
+          value:
+            Number(currentIndustryData[0]?.["Partial_R2_DSO"]).toFixed(2) > 0.1
+              ? Number(currentIndustryData[0]?.["Partial_R2_DSO"]).toFixed(2)
+              : 0,
           pro: true,
         },
       ];

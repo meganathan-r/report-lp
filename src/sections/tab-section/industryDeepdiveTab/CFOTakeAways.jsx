@@ -113,13 +113,13 @@ const CFOTakeAways = () => {
           description:
             "Regulated billing cycles create more predictable DSO patterns, enabling better forecasting and valuation support for rate case filings.",
         },
-        // {
-        //   title: "Strategic Investment Flexibility",
-        //   mainValue: "6 - 12%",
-        //   subtitle: "of annual revenue convertible to infrastructure capital",
-        //   description:
-        //     "Cash unlocked through DSO optimization reduces dependence on debt financing for critical infrastructure investments and grid modernization.",
-        // },
+        {
+          title: "Strategic Investment Flexibility",
+          mainValue: "6 - 12%",
+          subtitle: "of annual revenue convertible to infrastructure capital",
+          description:
+            "Cash unlocked through DSO optimization reduces dependence on debt financing for critical infrastructure investments and grid modernization.",
+        },
       ],
     },
     {
@@ -154,13 +154,13 @@ const CFOTakeAways = () => {
           description:
             "Accelerating receivables shortens the cash cycle for asset-heavy operations, improving return on invested capital for fleet and equipment.",
         },
-        // {
-        //   title: "Strategic Investment Flexibility",
-        //   mainValue: "10 - 16%",
-        //   subtitle: "of annual revenue convertible to fleet capital",
-        //   description:
-        //     "Cash unlocked through DSO optimization reduces dependence on equipment financing, giving logistics firms room to self-fund fleet expansion and technology upgrades.",
-        // },
+        {
+          title: "Strategic Investment Flexibility",
+          mainValue: "10 - 16%",
+          subtitle: "of annual revenue convertible to fleet capital",
+          description:
+            "Cash unlocked through DSO optimization reduces dependence on equipment financing, giving logistics firms room to self-fund fleet expansion and technology upgrades.",
+        },
       ],
     },
     {
@@ -195,13 +195,13 @@ const CFOTakeAways = () => {
           description:
             "Higher subscription percentages correlate with narrower DSO ranges and more predictable cash conversion, enabling better forecasting and valuation support.",
         },
-        // {
-        //   title: "Free Cash Flow Sensitivity",
-        //   mainValue: "0.09 - 0.11 pp",
-        //   subtitle: "FCF-margin lift per DSO day reduced",
-        //   description:
-        //     "FCF margin improvements directly impact Free Cash Flow margins—critical for technology firms where investor valuations increasingly depend on cash generation rather than just growth rates.",
-        // },
+        {
+          title: "Free Cash Flow Sensitivity",
+          mainValue: "0.09 - 0.11 pp",
+          subtitle: "FCF-margin lift per DSO day reduced",
+          description:
+            "FCF margin improvements directly impact Free Cash Flow margins—critical for technology firms where investor valuations increasingly depend on cash generation rather than just growth rates.",
+        },
       ],
     },
     {
@@ -278,13 +278,13 @@ const CFOTakeAways = () => {
           description:
             "Fee-based services show tighter DSO management opportunities compared to interest-based revenue, enabling better cash flow predictability.",
         },
-        // {
-        //   title: "Regulatory Capital Efficiency",
-        //   mainValue: "4 - 8%",
-        //   subtitle: "of annual revenue convertible to lending capital",
-        //   description:
-        //     "Cash unlocked through DSO optimization improves regulatory capital ratios and reduces dependence on expensive wholesale funding.",
-        // },
+        {
+          title: "Regulatory Capital Efficiency",
+          mainValue: "4 - 8%",
+          subtitle: "of annual revenue convertible to lending capital",
+          description:
+            "Cash unlocked through DSO optimization improves regulatory capital ratios and reduces dependence on expensive wholesale funding.",
+        },
       ],
     },
     {
@@ -320,13 +320,13 @@ const CFOTakeAways = () => {
           description:
             "Project-based billing creates variable DSO patterns, but systematic client credit management can significantly improve cash conversion timing.",
         },
-        // {
-        //   title: "Content Investment Synergy",
-        //   mainValue: "10 - 15%",
-        //   subtitle: "of annual revenue convertible to content capital",
-        //   description:
-        //     "Cash unlocked through DSO optimization reduces dependence on production financing, giving media firms room to self-fund content development and technology infrastructure.",
-        // },
+        {
+          title: "Content Investment Synergy",
+          mainValue: "10 - 15%",
+          subtitle: "of annual revenue convertible to content capital",
+          description:
+            "Cash unlocked through DSO optimization reduces dependence on production financing, giving media firms room to self-fund content development and technology infrastructure.",
+        },
       ],
     },
     {
@@ -362,13 +362,13 @@ const CFOTakeAways = () => {
           description:
             "Progress billing and retention practices create extended DSO cycles, but systematic optimization can significantly accelerate cash conversion.",
         },
-        // {
-        //   title: "Project Investment Flexibility",
-        //   mainValue: "13 - 21%",
-        //   subtitle: "of annual revenue convertible to project capital",
-        //   description:
-        //     "Cash unlocked through DSO optimization reduces dependence on construction lending, giving firms room to self-fund equipment and bonding capacity expansion.",
-        // },
+        {
+          title: "Project Investment Flexibility",
+          mainValue: "13 - 21%",
+          subtitle: "of annual revenue convertible to project capital",
+          description:
+            "Cash unlocked through DSO optimization reduces dependence on construction lending, giving firms room to self-fund equipment and bonding capacity expansion.",
+        },
       ],
     },
   ];
@@ -379,16 +379,12 @@ const CFOTakeAways = () => {
   return (
     <div className="mb-10 lg:mb-14">
       {/* Enhanced Header */}
-      <div className="mb-4  pb-6">
+      <div className="mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="sm:text-xl text-lg font-bold text-gray-900 tracking-tight">
               Key Takeaways for the CFO
             </h1>
-            <p className="text-gray-500 mt-1 max-w-3xl">
-              Key metrics and opportunities for{" "}
-              {selectIndustry || "your industry"}
-            </p>
           </div>
         </div>
       </div>
@@ -399,7 +395,7 @@ const CFOTakeAways = () => {
         {currentIndustry.points.map((metric, index) => (
           <div
             key={index}
-            className={`group relative bg-white rounded-xl border border-gray-200 transition-all duration-300 hover:shadow-md  overflow-hidden`}
+            className={`group relative bg-gray-50 rounded-xl border border-gray-200 transition-all duration-300 hover:shadow-md  overflow-hidden`}
           >
             <div className="p-4 sm:p-6">
               {/* Header with index indicator */}
@@ -417,8 +413,8 @@ const CFOTakeAways = () => {
               </div>
 
               {/* Main Value */}
-              <div className="mb-5">
-                <div className="sm:text-[2rem] text-[1.5rem] font-extrabold text-bblue-500 mb-1">
+              <div className="mb-4">
+                <div className="sm:text-[2rem] text-[1.5rem] font-extrabold text-bblue-500 mb-2">
                   {metric.mainValue}
                 </div>
                 <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">

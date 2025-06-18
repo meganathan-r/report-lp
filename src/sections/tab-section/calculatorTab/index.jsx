@@ -1,11 +1,12 @@
 import DSOCalculator from "./Calculator";
 
-const IndustrySolutions = () => {
+const Calculator = () => {
   return (
     <div className="">
       <DSOCalculator />
+      Working in Progress
     </div>
   );
 };
 
-export default IndustrySolutions;
+export default Calculator;
