@@ -3,9 +3,17 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-const SelectInput = ({ label, options, value, handleChange }) => {
+const SelectInput = ({
+  label,
+  options,
+  value,
+  handleChange,
+  className,
+  defaultOpt,
+  disabled,
+}) => {
   return (
-    <div>
+    <div className={className}>
       <label
         htmlFor="revenue-band-select"
         className="block text-base font-medium text-gray-700 mb-1.5"
@@ -18,6 +26,7 @@ const SelectInput = ({ label, options, value, handleChange }) => {
           value={value}
           onChange={(e) => handleChange(e.target.value)}
           displayEmpty
+          disabled={disabled}
           inputProps={{ "aria-label": label }}
           sx={{
             backgroundColor: "white",
@@ -34,6 +43,11 @@ const SelectInput = ({ label, options, value, handleChange }) => {
             },
           }}
         >
+          {defaultOpt && (
+            <MenuItem disabled value={""}>
+              {defaultOpt}
+            </MenuItem>
+          )}
           {options?.map((value) => (
             <MenuItem value={value}>{value}</MenuItem>
           ))}
@@ -44,3 +58,5 @@ const SelectInput = ({ label, options, value, handleChange }) => {
 };
 
 export default SelectInput;
+
+

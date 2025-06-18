@@ -96,7 +96,7 @@ const IndustryDistribution = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-25 to-gray-75 py-5 sm:py-10 px-4 sm:px-6 lg:px-8">
+    <div className="bg-white py-5 sm:py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header section */}
         <HeaderSection
@@ -104,10 +104,10 @@ const IndustryDistribution = () => {
           description={headingContent?.description}
         />
         {/* Main content */}
-        <div className="flex flex-col lg:flex-row gap-12 bg-white rounded-xl hover:shadow-md p-4 sm:p-8 card-border">
+        <div className="flex flex-col lg:flex-row gap-12   ">
           {/* Left content */}
-          <div className="lg:w-2/5">
-            <div className="bg-white rounded-2xl   border-gray-200 h-full">
+          <div className="lg:w-2/5 bg-white">
+            <div className="h-full">
               <div className="space-y-6">
                 {INDUSTRY_DISTRIBUTION_KEY_POINTS.map((point, id) => (
                   <div key={id} className="flex items-start">

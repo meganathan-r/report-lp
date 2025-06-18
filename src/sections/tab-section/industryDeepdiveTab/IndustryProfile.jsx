@@ -53,7 +53,7 @@ const IndustryProfile = () => {
 
   return (
     <div className="mb-8">
-      <h2 className="sm:text-xl text-lg font-bold text-gray-800 mb-4">
+      <h2 className="tab-title mb-4">
         {selectIndustry}
         {"  "}Profile
       </h2>

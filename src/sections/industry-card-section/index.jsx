@@ -79,7 +79,7 @@ const IndustryCardsSection = () => {
   }, [industryData]);
 
   return (
-    <section className="py-20 mt-4 bg-white">
+    <section className="py-16 sm:py-20 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* heading section */}
         <HeaderSection

@@ -20,7 +20,7 @@ const IndustryDeepdive = ({
   return (
     <div className="divide-y  divide-gray-200">
       <div className="grid grid-cols-1 md:grid-cols-4 items-start pb-8 gap-4">
-        <div className="flex flex-col col-span-1  gap-6 p-4 md:sticky top-26 border border-gray-200 rounded-md">
+        <div className="flex flex-col col-span-1  gap-6 sm:p-4 md:sticky md:top-26 sm:border sm:border-gray-200 rounded-md">
           <SelectInput
             label="Select Industry"
             options={industries}
@@ -34,7 +34,7 @@ const IndustryDeepdive = ({
             handleChange={handleChangeRevenueBand}
           />
         </div>
-        <div className="md:col-span-3 p-4 border border-gray-200 rounded-lg ">
+        <div className="md:col-span-3 sm:p-4 sm:border sm:border-gray-200 rounded-lg ">
           {/* 1. Industry Profile */}
           <IndustryProfile />
           {/* 2. Cash Cycle Component */}
@@ -51,7 +51,7 @@ const IndustryDeepdive = ({
           <CFOTakeAways />
           {/* Challenges & Solutions Section */}
           <div className="">
-            <h2 className="sm:text-xl text-lg  font-bold text-gray-800 mb-4">
+            <h2 className="tab-title mb-4">
               Operational Challenges in Managing Receivables
             </h2>
 
@@ -62,7 +62,7 @@ const IndustryDeepdive = ({
       {/* Success Stories */}
       <div className="mt-8">
         <div className="my-4 ">
-          <h2 className="sm:text-xl text-lg font-bold text-gray-800 mb-4">
+          <h2 className="tab-title mb-4">
             Success Stories in Similar Industries
           </h2>
           <SuccessStoryCard />

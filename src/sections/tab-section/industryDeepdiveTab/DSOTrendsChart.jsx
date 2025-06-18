@@ -52,9 +52,7 @@ const DSOTrendsChart = () => {
   return (
     <div className="mb-8 sm:mb-14 mt-4">
       {/* Chart title */}
-      <h3 className="sm:text-xl text-lg font-bold text-gray-800 mb-4">
-        DSO Trends Across Revenue Bands
-      </h3>
+      <h3 className="tab-title mb-4">DSO Trends Across Revenue Bands</h3>
 
       {/* Chart container */}
       <div className="h-64">
@@ -183,7 +181,7 @@ const DSOTrendsChart = () => {
 
 export default DSOTrendsChart;
 
-const CustomTooltip = ({ active, payload, label, defalutLable, metric }) => {
+const CustomTooltip = ({ active, payload, label, defalutLable }) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white p-4 border max-w-[200px] sm:max-w-[400px] border-gray-200 shadow-lg rounded-md">

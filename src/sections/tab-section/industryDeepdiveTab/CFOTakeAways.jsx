@@ -382,7 +382,7 @@ const CFOTakeAways = () => {
       <div className="mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="sm:text-xl text-lg font-bold text-gray-900 tracking-tight">
+            <h1 className="tab-title tracking-tight">
               Key Takeaways for the CFO
             </h1>
           </div>
@@ -393,46 +393,7 @@ const CFOTakeAways = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
         {currentIndustry.points.map((metric, index) => (
-          <div
-            key={index}
-            className={`group relative bg-gray-50 rounded-xl border border-gray-200 transition-all duration-300 hover:shadow-md  overflow-hidden`}
-          >
-            <div className="p-4 sm:p-6">
-              {/* Header with index indicator */}
-              <div className="flex  items-center gap-4 mb-5">
-                <div className="flex-shrink-0 w-8 h-8  sm:w-10 sm:h-10 sm:rounded-lg rounded-md bg-blue-50 flex items-center justify-center">
-                  <span className="text-base sm:text-lg font-bold text-bblue-500">
-                    {index + 1}
-                  </span>
-                </div>
-                <div className="flex-1">
-                  <h2 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
-                    {metric.title}
-                  </h2>
-                </div>
-              </div>
-
-              {/* Main Value */}
-              <div className="mb-4">
-                <div className="sm:text-[2rem] text-[1.5rem] font-extrabold text-bblue-500 mb-2">
-                  {metric.mainValue}
-                </div>
-                <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {metric.subtitle}
-                </div>
-              </div>
-
-              {/* Description */}
-              <div className="pt-4 border-t border-gray-100">
-                <p className="para-text leading-relaxed">
-                  {metric.description}
-                </p>
-              </div>
-            </div>
-
-            {/* Hover effect */}
-            {/* <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-blue-300 pointer-events-none transition-all duration-300" /> */}
-          </div>
+          <CFOtakeawayCard index={index} metric={metric} />
         ))}
       </div>
     </div>
@@ -440,3 +401,43 @@ const CFOTakeAways = () => {
 };
 
 export default CFOTakeAways;
+
+const CFOtakeawayCard = ({ metric, index }) => {
+  return (
+    <div key={index} className={`group relative bg-blue-50 rounded-xl  `}>
+      <div className="p-4 sm:p-6">
+        {/* Header with index indicator */}
+        <div className="flex  items-center gap-4 mb-5">
+          <div className="flex-shrink-0 w-8 h-8  sm:w-10 sm:h-10 sm:rounded-lg rounded-md bg-slate-200 flex items-center justify-center">
+            <span className="text-base sm:text-lg font-bold text-bblue-500">
+              {index + 1}
+            </span>
+          </div>
+          <div className="flex-1">
+            <h2 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
+              {metric.title}
+            </h2>
+          </div>
+        </div>
+
+        {/* Main Value */}
+        <div className="mb-4">
+          <div className="sm:text-[2rem] text-[1.5rem] font-extrabold text-bblue-500 mb-2">
+            {metric.mainValue}
+          </div>
+          <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+            {metric.subtitle}
+          </div>
+        </div>
+
+        {/* Description */}
+        <div className="pt-4 border-t border-gray-100">
+          <p className="para-text leading-relaxed">{metric.description}</p>
+        </div>
+      </div>
+
+      {/* Hover effect */}
+      {/* <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-blue-300 pointer-events-none transition-all duration-300" /> */}
+    </div>
+  );
+};

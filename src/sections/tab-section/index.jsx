@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 import TabNavbar from "./TabHeader";
 import CrossIndustryOverview from "./crossIndustryTab";
-import SolutionsSection from "./calculatorTab";
 import IndustryDeepdive from "./industryDeepdiveTab";
 import HeaderSection from "../../components/header-section";
 import Calculator from "./calculatorTab";
 import { useAppStateContext } from "../../context/AppStateContext";
 import useQueryData from "../../hooks/useQueryData";
+import DSOImpactCalculator from "./calculatorTab";
 
 const BenchmarkAnalytics = () => {
   const {
@@ -55,9 +55,11 @@ const BenchmarkAnalytics = () => {
             />
           )}
           {activeTab === "tab3" && (
-            <Calculator
-              selectIndustry={selectIndustry}
+            <DSOImpactCalculator
+              industry={selectIndustry}
+              selectRevenueBand={selectRevenueBand}
               handleChangeIndustry={handleChangeIndustry}
+              handleChangeRevenueBand={handleChangeRevenueBand}
             />
           )}
         </div>

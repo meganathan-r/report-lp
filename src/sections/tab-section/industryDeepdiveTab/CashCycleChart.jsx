@@ -36,9 +36,7 @@ const CashCycleChart = () => {
 
   return (
     <div className="mb-8 sm:mb-10 mt-4">
-      <h2 className="sm:text-xl text-lg font-bold text-gray-800 mb-4">
-        Cash Cycle Components
-      </h2>
+      <h2 className="tab-title mb-4">Cash Cycle Components</h2>
 
       {/* Chart Container */}
       <div className="h-64 col-span-2 bg-white p-2 rounded-lg  ">

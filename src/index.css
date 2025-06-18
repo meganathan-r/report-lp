@@ -32,6 +32,10 @@
   .card-border {
     @apply border border-gray-200
   }
+
+  .tab-title {
+    @apply sm:text-2xl text-lg font-bold text-gray-800
+  }
 }
 
 

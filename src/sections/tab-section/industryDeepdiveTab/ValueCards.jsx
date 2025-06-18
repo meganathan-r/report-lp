@@ -44,6 +44,19 @@ const ValueCard = () => {
           ).toFixed(1),
           description: "Interest Saved per $100M Revenue",
         },
+        {
+          title: "CapEX Funded by Cash Released",
+          pre: "$",
+          suf: "M",
+          value:
+            Number(currentIndustryData[0]?.["CapEX Funded by Cash Released"]) >
+            2
+              ? Number(
+                  currentIndustryData[0]?.["CapEX Funded by Cash Released"]
+                ).toFixed(1)
+              : 0,
+          description: "CapEx coverage per $100M revenue at P25 DSO",
+        },
       ];
       setDataValues(cardData);
     }
@@ -51,7 +64,7 @@ const ValueCard = () => {
 
   return (
     <>
-      <h2 className="sm:text-xl text-lg font-bold text-gray-800 mb-4">
+      <h2 className="tab-title mb-4">
         Improvement Potential: {selectRevenueBand} Revenue Band
       </h2>
       {/* card section */}
@@ -68,20 +81,26 @@ export default ValueCard;
 
 const Card = ({ item }) => {
   return (
-    <div className="relative bg-white p-6 rounded-lg border border-gray-200  hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 overflow-hidden">
-      <h3 className="text-sm text-gray-600 font-medium mb-2">{item?.title}</h3>
-      <p className="sm:text-[2rem] text-[1.5rem] font-extrabold text-bblue-500 mb-1 flex items-baseline gap-2">
-        {item.title === "DSO Range"
-          ? item.value
-          : item.value > 0 && (
-              <span>
-                {item.pre}
-                <CountUp end={Number(item?.value)} duration={1} decimals={1} />
-                {item.suf}
-              </span>
-            )}
-      </p>
-      <p className="text-xs text-gray-500 leading-snug">{item?.description}</p>
-    </div>
+    (item.value > 0 || item.title === "DSO Range") && (
+      <div className="relative bg-white p-6 rounded-lg border border-gray-200  hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 overflow-hidden">
+        <h3 className="text-sm text-gray-600 font-medium mb-2">
+          {item?.title}
+        </h3>
+        <p className="sm:text-[2rem] text-[1.5rem] font-extrabold text-bblue-500 mb-1 flex items-baseline gap-2">
+          {item.title === "DSO Range" ? (
+            item.value
+          ) : (
+            <span>
+              {item.pre}
+              <CountUp end={Number(item?.value)} duration={1} decimals={1} />
+              {item.suf}
+            </span>
+          )}
+        </p>
+        <p className="text-xs text-gray-500 leading-snug">
+          {item?.description}
+        </p>
+      </div>
+    )
   );
 };
