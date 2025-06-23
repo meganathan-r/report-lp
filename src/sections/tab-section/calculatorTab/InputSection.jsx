@@ -68,6 +68,7 @@ const InputSection = ({
             onChange={(e) =>
               setCurrentDSO(e.target.value ? parseInt(e.target.value) : null)
             }
+            disabled={!revenueRange}
             InputProps={{
               inputProps: { min: 1, max: 365 },
               endAdornment: (
@@ -90,6 +91,8 @@ const InputSection = ({
                   borderWidth: 2,
                 },
               },
+              opacity: !revenueRange ? 0.5 : 1,
+              cursor: !revenueRange ? "not-allowed" : "pointer",
             }}
           />
         </FormControl>
