@@ -43,8 +43,8 @@ const SingleBarChart = ({
               tick={{
                 fontSize: 12,
                 fill: "#374151",
-                angle: -30, // optional: rotates for better spacing
-                textAnchor: "end", // aligns angled text
+                angle: -30,  // for better spacing
+                textAnchor: "end", 
               }}
               interval={0}
               tickLine={false}

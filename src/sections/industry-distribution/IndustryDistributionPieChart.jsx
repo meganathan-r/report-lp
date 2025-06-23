@@ -74,6 +74,7 @@ const IndustryDistributionPieChart = ({ data }) => {
               align="right"
               iconType="square"
               iconSize={10}
+              overflow="hidden"
               formatter={(value) => (
                 <span className="text-gray-600 text-sm font-medium">
                   {value}

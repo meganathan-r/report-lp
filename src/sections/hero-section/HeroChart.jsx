@@ -21,7 +21,7 @@ const COLORS = {
 };
 
 const GRADIENTS = {
-  YOUR_COMPANY: "url(#colorYourCompany)",
+  YOUR_COMPANY: "transparent", //url(#colorYourCompany)
   INDUSTRY_AVG: "url(#colorIndustryAvg)",
 };
 
