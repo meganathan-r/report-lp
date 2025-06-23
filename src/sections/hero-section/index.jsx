@@ -17,7 +17,6 @@ const formatChartData = (data) =>
 const HeroSection = () => {
   const { industryData } = useAppStateContext();
   const { data } = useQueryData("titleDescription");
-
   const [chartData, setChartData] = useState([]);
   const stats = useMemo(() => {
     if (!Array.isArray(industryData) || industryData.length === 0) return [];
@@ -40,7 +39,7 @@ const HeroSection = () => {
     }
   }, [industryData]);
   return (
-    <section className="mb-12  py-12 bg-white ">
+    <section className="mb-10 sm:mb-12  py-10 bg-white ">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-12 md:gap-16">
           {/* Text Content */}
@@ -66,7 +65,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-2xl mt-18 mx-auto">
+      <div className="max-w-2xl mt-12 mx-auto">
         {/* Stats */}
         <div className="flex flex-nowrap justify-between gap-6 ">
           {stats.map((it, i) => (
@@ -87,4 +86,4 @@ const HeroSection = () => {
 
 export default HeroSection;
 
-// Color constants for maintainability
+

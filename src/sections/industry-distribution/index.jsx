@@ -96,7 +96,7 @@ const IndustryDistribution = () => {
   ];
 
   return (
-    <div className="bg-white py-5 sm:py-10 px-4 sm:px-6 lg:px-8">
+    <div className="bg-white py-4 sm:py-10 ">
       <div className="max-w-7xl mx-auto">
         {/* Header section */}
         <HeaderSection

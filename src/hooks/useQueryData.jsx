@@ -8,6 +8,7 @@ const useQueryData = (queryName) => {
     queryKey: currentQuery?.key, // queryKey is now unique per sheetKey and URL
     queryFn: () => fetchSheetData(currentQuery?.url),
     retry: 1,
+    staleTime: 1000 * 60 * 5, // 5min
   });
 };
 

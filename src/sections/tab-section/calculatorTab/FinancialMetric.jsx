@@ -1,5 +1,3 @@
-import React from "react";
-
 const FinancialMetric = ({ title, value, description }) => {
   return (
     <div className="flex items-start">

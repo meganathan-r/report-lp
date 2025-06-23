@@ -1,19 +1,73 @@
 import React, { useState, useEffect, useMemo } from "react";
-import {
-  benchmarkData,
-  industries,
-  revenueBands,
-} from "../../../utils/constant";
+import { industries, revenueBands } from "../../../utils/constant";
 import InputSection from "./InputSection";
 import ResultsSection from "./ResultsSection";
+import { useAppStateContext } from "../../../context/AppStateContext";
 
-const DSOImpactCalculator = ({
-  handleChangeIndustry,
-  // handleChangeRevenueBand,
-  industry,
-  // selectRevenueBand,
-}) => {
-  // const [industry, setIndustry] = useState("");
+function transformReportData(apiData) {
+  const benchmarkData = {};
+  apiData?.forEach((record) => {
+    const industry = record.Industry;
+    const revenueRange = record["Revenue Range"];
+    // clean the data - if revenue range is all, empty fields
+    if (
+      !industry ||
+      !revenueRange ||
+      industry === "All Industries" ||
+      revenueRange === "All" ||
+      !record["P25 DSO"] ||
+      !record["P50 DSO"] ||
+      !record["P75 DSO"]
+    ) {
+      return;
+    }
+    // Initialize industry if it doesn't exist
+    if (!benchmarkData[industry]) {
+      benchmarkData[industry] = {};
+    }
+    // Helper function - to parse numeric values
+    const parseNumeric = (value, defaultValue = 0) => {
+      if (typeof value === "string") {
+        const cleaned = value.replace(/[,%]/g, "");
+        const parsed = parseFloat(cleaned);
+        return isNaN(parsed) ? defaultValue : parsed;
+      }
+      return typeof value === "number" ? value : defaultValue;
+    };
+
+    const p25DSO = Math.round(parseNumeric(record["P25 DSO"]));
+    const p50DSO = Math.round(parseNumeric(record["P50 DSO"]));
+    const p75DSO = Math.round(parseNumeric(record["P75 DSO"]));
+    const cashReleased = Math.round(
+      parseNumeric(record["Cash Released (P25) per $100M Revenue"])
+    );
+    const interestSaved = Math.round(
+      parseNumeric(record["Interest Saved per $100M Revenue"])
+    );
+    const capexFunded =
+      Math.round(parseNumeric(record["CapEX Funded by Cash Released"]) * 100) /
+      100;
+    const capexRevenue =
+      Math.round(parseNumeric(record["CapEX/Revenue"]) * 100) / 100;
+    benchmarkData[industry][revenueRange] = {
+      "P25 DSO": p25DSO,
+      "P50 DSO": p50DSO,
+      "P75 DSO": p75DSO,
+      "Cash Released (P25) per $100M Revenue": cashReleased,
+      "Interest Saved per $100M Revenue": interestSaved,
+      "CapEX Funded by Cash Released": capexFunded,
+      "CapEX/Revenue": capexRevenue,
+    };
+  });
+  return benchmarkData;
+}
+
+const DSOImpactCalculator = ({ handleChangeIndustry, industry }) => {
+  const { industryData } = useAppStateContext();
+  const benchmarkData = useMemo(() => {
+    return transformReportData(industryData);
+  }, [industryData]);
+
   const [revenueRange, setRevenueRange] = useState("");
   const [currentDSO, setCurrentDSO] = useState(null);
   const [targetDSO, setTargetDSO] = useState(30);

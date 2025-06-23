@@ -26,15 +26,15 @@
 
 @layer components {
   .para-text {
-    @apply text-base text-gray-600
+    @apply text-base text-gray-600;
   }
 
   .card-border {
-    @apply border border-gray-200
+    @apply border border-gray-200;
   }
 
   .tab-title {
-    @apply sm:text-2xl text-lg font-bold text-gray-800
+    @apply sm:text-2xl text-lg font-bold text-gray-800;
   }
 }
 

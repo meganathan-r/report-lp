@@ -27,7 +27,7 @@ const InputSection = ({
     setRevenueRange(value);
   };
   return (
-    <div className="bg-white p-6 border border-gray-200  h-auto  lg:sticky lg:top-26  rounded-xl ">
+    <div className="bg-white sm:p-6 sm:border sm:border-gray-200  h-auto  lg:sticky lg:top-26  rounded-xl ">
       <div className="flex items-center mb-8">
         <h3 className="text-xl font-semibold text-gray-800">Company Profile</h3>
       </div>
@@ -103,7 +103,7 @@ const InputSection = ({
               htmlFor="revenue-band-select"
               className="block text-base font-medium text-gray-700 mb-1.5"
             >
-             Target DSO (Optional)
+              Target DSO (Optional)
             </label>
             <span className="bg-blue-100 text-bblue-500 font-medium py-1 px-3 rounded-full">
               {targetDSO} days
@@ -117,7 +117,7 @@ const InputSection = ({
           >
             <Slider
               min={1}
-              max={365}
+              max={currentDSO}
               value={targetDSO}
               onChange={(e, newValue) => setTargetDSO(newValue)}
               // disabled={isTargetSliderDisabled}
@@ -154,7 +154,7 @@ const InputSection = ({
         </div>
         <div className="flex justify-between text-xs text-gray-500">
           <span>1 day</span>
-          <span>365 days</span>
+          <span>{currentDSO || 30} days</span>
         </div>
       </div>
     </div>

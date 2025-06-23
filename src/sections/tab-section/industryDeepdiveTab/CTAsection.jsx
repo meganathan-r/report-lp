@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 
-const ImprovedCTASection = () => {
+const CTASection = () => {
   useEffect(() => {
+    window.disableRevenueHero = true;
     if (window.hbspt && document.getElementById("hubSpotFormHere")) {
       window.hbspt.forms.create({
         region: "eu1",
@@ -10,19 +11,20 @@ const ImprovedCTASection = () => {
         target: "#hubSpotFormHere",
       });
     }
-    //  RevenueHero Schedular starts & Delay RevenueHero initialization
-    const timer = setTimeout(() => {
-      if (window.RevenueHero && document.getElementById("embedHere")) {
-        window.hero = new window.RevenueHero({ routerId: "534" });
-        window.hero.schedule(
-          "hsForm_9142fe08-8b81-4ea9-b537-0024f2cd5c91",
-          "#embedHere"
-        );
-      }
-    }, 200);
 
-    return () => clearTimeout(timer);
+    if (window.RevenueHero && document.getElementById("embedHere")) {
+      window.hero = new window.RevenueHero({
+        routerId: "534",
+        mode: "embed",
+        embed: true,
+      });
+      window.hero.schedule(
+        "hsForm_9142fe08-8b81-4ea9-b537-0024f2cd5c91",
+        "#embedHere"
+      );
+    }
   }, []);
+
   return (
     <div className=" pt-12  sm:pt-16 overflow-hidden ">
       <div className=" relative z-10">
@@ -46,10 +48,6 @@ const ImprovedCTASection = () => {
             </p>
 
             <div className="space-y-6">
-              {/* <h2 className="text-xl font-bold text-gray-800 border-l-4 border-bblue-500 pl-4 py-1">
-                Key Benefits:
-              </h2> */}
-
               <div className="space-y-5">
                 <BenefitItem
                   icon={
@@ -125,7 +123,7 @@ const ImprovedCTASection = () => {
   );
 };
 
-export default ImprovedCTASection;
+export default CTASection;
 
 const BenefitItem = ({ icon, title, description }) => (
   <div className="flex items-start bg-white py-3 rounded-lg ">
@@ -133,7 +131,7 @@ const BenefitItem = ({ icon, title, description }) => (
       {icon}
     </div>
     <div className="ml-4">
-      <h4 className="font-semibold text-gray-900 text-lg">{title}</h4>
+      <h4 className="font-semibold text-gray-900 text-lg my-0">{title}</h4>
       <p className="para-text mt-1">{description}</p>
     </div>
   </div>

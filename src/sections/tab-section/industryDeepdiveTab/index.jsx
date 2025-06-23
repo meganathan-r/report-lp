@@ -8,7 +8,6 @@ import CFOTakeAways from "./CFOTakeAways";
 import SelectInput from "../../../components/select-input";
 import { industries, revenueBands } from "../../../utils/constant";
 import ChallengesSolutionTable from "./ChallengesSolutionTable";
-import ImprovedCTASection from "./CTAsection";
 import SuccessStoryCard from "./SuccessStoryCard";
 
 const IndustryDeepdive = ({
@@ -18,8 +17,8 @@ const IndustryDeepdive = ({
   selectRevenueBand,
 }) => {
   return (
-    <div className="divide-y  divide-gray-200">
-      <div className="grid grid-cols-1 md:grid-cols-4 items-start pb-8 gap-4">
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-4 items-start pb-4 gap-4">
         <div className="flex flex-col col-span-1  gap-6 sm:p-4 md:sticky md:top-26 sm:border sm:border-gray-200 rounded-md">
           <SelectInput
             label="Select Industry"
@@ -60,17 +59,14 @@ const IndustryDeepdive = ({
         </div>
       </div>
       {/* Success Stories */}
-      <div className="mt-8">
-        <div className="my-4 ">
-          <h2 className="tab-title mb-4">
-            Success Stories in Similar Industries
-          </h2>
-          <SuccessStoryCard />
-        </div>
 
-        <ImprovedCTASection />
+      <div className="my-4 pt-8 mt-8 border-t border-gray-200">
+        <h2 className="tab-title mb-4">
+          Success Stories in Similar Industries
+        </h2>
+        <SuccessStoryCard />
       </div>
-    </div>
+    </>
   );
 };
 

@@ -2,13 +2,7 @@ import React, { useMemo } from "react";
 import ImprovementCard from "./ImprovementCard";
 import BenchmarkCard from "./BenchmarkCard";
 
-const ResultsSection = ({
-  benchmark,
-  currentDSO,
-  targetDSO,
-  industry,
-  revenueRange,
-}) => {
+const ResultsSection = ({ benchmark, currentDSO, targetDSO }) => {
   // Calculate improvements based on benchmarks
   const improvements = useMemo(() => {
     if (!benchmark || currentDSO === null || isNaN(currentDSO)) return [];

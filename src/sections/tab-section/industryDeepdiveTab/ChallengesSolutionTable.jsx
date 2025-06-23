@@ -13,7 +13,7 @@ const ChallengeCard = ({ challenge, impact, solution }) => (
       </div>
       <div className="border-t border-gray-100 pt-3">
         <div className="text-sm font-semibold text-gray-700 mb-1 flex items-center">
-          AI Powered Solution
+          Solution
         </div>
         <div className="text-gray-800 mt-2">
           {solution.map((item, i) => (
@@ -61,9 +61,7 @@ const ChallengesSolutionTable = ({ challenges }) => {
         <div className="grid grid-cols-12 gap-8 bg-gray-50 p-4 text-sm font-medium text-gray-700">
           <div className="col-span-3">Challenge</div>
           <div className="col-span-4">Impact</div>
-          <div className="col-span-5 flex items-center">
-            AI Powered Solution
-          </div>
+          <div className="col-span-5 flex items-center">Solution</div>
         </div>
         <div className="divide-y divide-gray-100">
           {challenges.map((item, index) => (

@@ -19,7 +19,7 @@ const IndustryCard = ({ industry, index }) => {
             {industry.title}
           </h3>
 
-          <p className=" ml-auto opacity-0 group-hover:opacity-100 relative flex items-center gap-1 text-base font-medium text-[#1e1b4b] transition-all duration-300">
+          <p className=" ml-auto hidden opacity-0 group-hover:opacity-100 relative sm:flex items-center gap-1 text-base font-medium text-[#1e1b4b] transition-all duration-300">
             Explore
             <span className="inline-block opacity-0 translate-x-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1">
               ›

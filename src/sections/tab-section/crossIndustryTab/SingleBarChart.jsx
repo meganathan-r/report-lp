@@ -18,7 +18,7 @@ const SingleBarChart = ({
   chartDetails,
 }) => {
   return (
-    <div className="bg-white p-6 transition-all duration-200 rounded-xl hover:shadow-lg border border-gray-200 ">
+    <div className="bg-white sm:p-6  transition-all duration-200 sm:rounded-xl sm:hover:shadow-lg sm:border border-gray-200 ">
       <h2 className="sm:text-xl text-lg font-bold text-gray-800 mb-4 sm:mb-8">
         {title}
       </h2>

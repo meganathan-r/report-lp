@@ -393,7 +393,7 @@ const CFOTakeAways = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
         {currentIndustry.points.map((metric, index) => (
-          <CFOtakeawayCard index={index} metric={metric} />
+          <CFOtakeawayCard key={index} index={index} metric={metric} />
         ))}
       </div>
     </div>
@@ -407,7 +407,7 @@ const CFOtakeawayCard = ({ metric, index }) => {
     <div key={index} className={`group relative bg-blue-50 rounded-xl  `}>
       <div className="p-4 sm:p-6">
         {/* Header with index indicator */}
-        <div className="flex  items-center gap-4 mb-5">
+        <div className="flex  items-center gap-4 mb-4">
           <div className="flex-shrink-0 w-8 h-8  sm:w-10 sm:h-10 sm:rounded-lg rounded-md bg-slate-200 flex items-center justify-center">
             <span className="text-base sm:text-lg font-bold text-bblue-500">
               {index + 1}
@@ -421,17 +421,17 @@ const CFOtakeawayCard = ({ metric, index }) => {
         </div>
 
         {/* Main Value */}
-        <div className="mb-4">
+        <div className="mb-2">
           <div className="sm:text-[2rem] text-[1.5rem] font-extrabold text-bblue-500 mb-2">
             {metric.mainValue}
           </div>
-          <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <div className="text-xs font-medium text-gray-500 pt-1 uppercase tracking-wider">
             {metric.subtitle}
           </div>
         </div>
 
         {/* Description */}
-        <div className="pt-4 border-t border-gray-100">
+        <div className="pt-2 border-t border-gray-100">
           <p className="para-text leading-relaxed">{metric.description}</p>
         </div>
       </div>

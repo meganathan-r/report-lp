@@ -3,10 +3,10 @@ import TabNavbar from "./TabHeader";
 import CrossIndustryOverview from "./crossIndustryTab";
 import IndustryDeepdive from "./industryDeepdiveTab";
 import HeaderSection from "../../components/header-section";
-import Calculator from "./calculatorTab";
 import { useAppStateContext } from "../../context/AppStateContext";
 import useQueryData from "../../hooks/useQueryData";
 import DSOImpactCalculator from "./calculatorTab";
+import CTASection from "./industryDeepdiveTab/CTAsection";
 
 const BenchmarkAnalytics = () => {
   const {
@@ -62,6 +62,9 @@ const BenchmarkAnalytics = () => {
               handleChangeRevenueBand={handleChangeRevenueBand}
             />
           )}
+          <div className={activeTab === "tab2" ? "block" : "hidden"}>
+            <CTASection />
+          </div>
         </div>
       </div>
     </div>
